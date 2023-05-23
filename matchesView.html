@@ -1,0 +1,123 @@
+<!DOCTYPE html>>
+<html lang="en">
+    <head>
+        <title>Matches View Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>
+            Tennis Tournament Database
+        </h1>
+        <ul>
+            <li><a href = "index.html">Home</a></li>
+            <li>
+                <a href = "#">View Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "tournamentsView.html">Tournaments</a></li>
+                    <li><a href = "playersView.html">Players</a></li>
+                    <li><a href = "coachesView.html">Coaches</a></li>
+                    <li><a href = "matchesView.html">Matches</a></li>
+                    <li><a href = "sponsorsView.html">Sponsors</a></li>
+                    <li><a href = "offeringsView.html">Offerings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Edit Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "tournamentsEdit.html">Tournaments</a></li>
+                    <li><a href = "playersEdit.html">Players</a></li>
+                    <li><a href = "coachesEdit.html">Coaches</a></li>
+                    <li><a href = "matchesEdit.html">Matches</a></li>
+                    <li><a href = "sponsorsEdit.html">Sponsors</a></li>
+                    <li><a href = "offeringsEdit.html">Offerings</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="contents">
+            <h2>
+                Matches View
+            </h2>
+            
+            <!--Filter START-->
+            <div class="filter">
+                <ul class="filter_list">
+                    <div class="single_filter">
+                        <li class="filter_name">Year</li>
+                            <ul class="input">
+                                <li><input></li>
+                            </ul>
+                    </div>
+                    
+                    <div class="single_filter">
+                        <li class="filter_name">Player Name</li>
+                            <ul class="input">
+                                <li><input></li>
+                            </ul>
+                    </div>
+                    
+                    <div class="single_filter">
+                        <li class="filter_name">Player Name</li>
+                        <ul class="input">
+                            <li><input></li>
+                        </ul>
+                    </div>
+                    
+                    <li class="filter_name"><button class="filter_button">Filter</button></li>
+                    
+                </ul>
+
+            </div>
+            <!--Filter END-->
+            
+            <div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Player1</th>
+                        <th>Player2</th>
+                        <th>Winner</th>
+                        <th>Score</th>
+                        <th>Year</th>
+
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>9/20/2019</td>
+                        <td>Roger Federer</td>
+                        <td>Novac Djokovic</td>
+                        <td>Novac Djokovic</td>
+                        <td>6-1, 6-4</td>
+                        <td>2019</td>
+
+                    </tr>
+                    
+                    <tr>
+                        <td>2</td>
+                        <td>9/20/2021</td>
+                        <td>Rafael Nadal</td>
+                        <td>Roger Federer</td>
+                        <td>Roger Federer</td>
+                        <td>6-3, 4-6, 7-5</td>
+                        <td>2021</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>9/28/2022</td>
+                        <td>Novac Djokovic</td>
+                        <td>Rafael Nadal</td>
+                        <td>Rafael Nadal</td>
+                        <td>0-6, 6-2, 7-5</td>
+                        <td>2022</td>
+
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+
+
+    </body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>>
+<html lang="en">
+    <head>
+        <title>Sponsors Edit Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Tennis Tournament Database</h1>
+
+        <ul>
+            <li><a href = "index.html">Home</a></li>
+            <li>
+                <a>View Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "tournamentsView.html">Tournaments</a></li>
+                    <li><a href = "playersView.html">Players</a></li>
+                    <li><a href = "coachesView.html">Coaches</a></li>
+                    <li><a href = "matchesView.html">Matches</a></li>
+                    <li><a href = "sponsorsView.html">Sponsors</a></li>
+                    <li><a href = "offeringsView.html">Offerings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Edit Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "tournamentsEdit.html">Tournaments</a></li>
+                    <li><a href = "playersEdit.html">Players</a></li>
+                    <li><a href = "coachesEdit.html">Coaches</a></li>
+                    <li><a href = "matchesEdit.html">Matches</a></li>
+                    <li><a href = "sponsorsEdit.html">Sponsors</a></li>
+                    <li><a href = "offeringsEdit.html">Offerings</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+        <div class="contents">
+            <h2>
+                Sponsors Edit
+            </h2>
+            <div class="create">
+                <form>
+                    <h3>Create New Data</h3>
+                    <div class="u_input">
+                        <label>Sponsor Name</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Offerings ID</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Tournaments ID</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    
+                    
+                    <button>Create Data</button>
+                </form>
+            </div>
+
+            <div class="edit">
+                <form>
+                    <h3>Edit Existing Data</h3>
+
+                    <div class="u_input">
+                        <label>ID(data you edit)</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Sponsor Name</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Offerings ID</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Tournaments ID</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    
+                    
+                    <button>Edit Data</button>
+                </form>
+            </div>
+            
+            
+            <div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Sponsor Name</th>
+                        <th>Offerings</th>
+                        <th>Year</th>
+
+                        <th>Delete</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Yonex</td>
+                        <td>2</td>
+                        <td>2018</td>
+
+                        <td><button class = "delete_button"> - </button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Asics</td>
+                        <td>3</td>
+                        <td>2019</td>
+
+                        <td><button class = "delete_button"> - </button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>US bank</td>
+                        <td>1</td>
+                        <td>2021</td>
+
+                        <td><button class = "delete_button"> - </button></td>
+                    </tr>
+                    
+                </table>
+            </div>
+            
+        </div>
+
+    </body>
+</html>

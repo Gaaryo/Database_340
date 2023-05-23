@@ -1,0 +1,118 @@
+<!DOCTYPE html>>
+<html lang="en">
+    <head>
+        <title>Player View Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>
+            Tennis Tournament Database
+        </h1>
+        <ul>
+            <li><a href = "index.html">Home</a></li>
+            <li>
+                <a href = "#">View Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "tournamentsView.html">Tournaments</a></li>
+                    <li><a href = "playersView.html">Players</a></li>
+                    <li><a href = "coachesView.html">Coaches</a></li>
+                    <li><a href = "matchesView.html">Matches</a></li>
+                    <li><a href = "sponsorsView.html">Sponsors</a></li>
+                    <li><a href = "offeringsView.html">Offerings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Edit Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "tournamentsEdit.html">Tournaments</a></li>
+                    <li><a href = "playersEdit.html">Players</a></li>
+                    <li><a href = "coachesEdit.html">Coaches</a></li>
+                    <li><a href = "matchesEdit.html">Matches</a></li>
+                    <li><a href = "sponsorsEdit.html">Sponsors</a></li>
+                    <li><a href = "offeringsEdit.html">Offerings</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="contents">
+            <h2>
+                Players View
+            </h2>
+            
+            <!--Filter START-->
+            <div class="filter">
+                <ul class="filter_list">
+                    <div class="single_filter">
+                        <li class="filter_name">First Name</li>
+                            <ul class="input">
+                                <li><input></li>
+                            </ul>
+                    </div>
+                    
+                    <div class="single_filter">
+                        <li class="filter_name">Last Name</li>
+                            <ul class="input">
+                                <li><input></li>
+                            </ul>
+                    </div>
+                    
+                    <div class="single_filter">
+                        <li class="filter_name">Nation</li>
+                        <ul class="input">
+                            <li><input></li>
+                        </ul>
+                    </div>
+                    
+                    <li class="filter_name"><button class="filter_button">Filter</button></li>
+                    
+                </ul>
+
+            </div>
+            <!--Filter END-->
+            <div>
+                <table>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Total Points</th>
+                        <th>Nation</th>
+                        <th>Phone Num</th>
+                        <th>E-mail</th>
+                        <th>Coach Id</th>
+                    </tr>
+                    <tr>
+                        <td>Roger</td>
+                        <td>Federer</td>
+                        <td>10874</td>
+                        <td>Switzerland</td>
+                        <td>541-358-8473</td>
+                        <td>federerr@tennis.com</td>
+                        <td>Null</td>
+                    </tr>
+                    <tr>
+                        <td>Novac</td>
+                        <td>Djokovic</td>
+                        <td>8540</td>
+                        <td>Serbia</td>
+                        <td>Null</td>
+                        <td>djokovic@tennis.com</td>
+                        <td>Null</td>
+                    </tr>
+
+                    <tr>
+                        <td>Rafael</td>
+                        <td>Nadal</td>
+                        <td>7890</td>
+                        <td>Spain</td>
+                        <td>Null</td>
+                        <td>nadalr@tennis.com</td>
+                        <td>Null</td>
+                    </tr>
+
+                </table>
+            </div>
+            
+        </div>
+
+
+    </body>
+</html>

@@ -1,0 +1,184 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: monospace;
+}
+
+body {
+   /* background-color: black;*/
+}
+
+h1{
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size:50px;
+}
+
+/*Menu bar START*/
+ul{
+    list-style: none;
+    background: #22438C;
+    padding: 5px;
+}
+
+ul li{
+    display: inline-block;
+    position: relative;
+}
+
+ul li a{
+    display: block;
+    padding: 20px 25 px;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    font-size: 30px;
+}
+
+ul li ul.dropdown li{
+    display: block;
+}
+
+ul li ul.dropdown{
+    width: 100%;
+    background: #22438C;
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+
+ul li a:hover{
+    background: greenyellow;
+    color:black;
+}
+
+ul li:hover ul.dropdown{
+    display: block;
+}
+
+/*Menu bar END*/
+
+/*Contents Start*/
+div.contents{
+    margin-top: 20px;
+    margin-left: 10%;
+    width: 80%;
+}
+
+h2 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 40px;
+    background: lightgray;
+}
+
+div.create{
+    display: inline-block;
+    position: relative;
+}
+
+div.edit{
+    display: inline-block;
+    position: relative;
+}
+
+/*Form start*/
+form {
+    background: #F7F6F6;
+}
+
+div.u_input{
+    height: 40px;
+    font-size: 20px;
+}
+
+div.u_input p{
+    display: inline;
+    color: red;
+}
+
+input{
+    height: 30px;
+    font-size: 20px;
+    border: 2px solid black ;
+}
+
+button {
+    height: 30px;
+    font-weight: bold;
+}
+
+button:hover{
+    background: lightgray;
+}
+/*Form End*/
+
+/*Filter START*/
+
+ul.filter_list{
+    background: white;
+}
+
+div.single_filter{
+    display: inline-block;
+    position: relative;
+
+}
+
+button.filter_button{
+    border: 2px solid;
+    width: 100px;
+}
+
+
+/*Filter END*/
+
+/*Table start*/
+table{
+    margin-top: 30px;
+    width: 100%;
+    border: 4px solid black;
+    text-align: center;
+
+}
+tr{
+    font-size: 15px;
+}
+
+th{
+    font-size: 15px;
+    font-weight: bold;
+    border: 1px solid black;
+
+}
+
+td{
+    height: 30px;
+    border: 1px solid black;
+    padding-left: 5px;
+    margin: 0px;
+}
+
+table, th, td{
+    border-collapse:collapse;
+}
+
+td button.edit_button{
+    width: 30px;
+    background-color: rgb(133, 224, 14);
+    border-radius: 25%;
+    font-size: 20px;
+}
+
+button.delete_button{
+    width: 30px;
+    background-color: rgb(246, 107, 107);
+    border-radius: 50%;
+    font-size: 20px;
+}
+/*Table End*/
+/*Contents End*/
