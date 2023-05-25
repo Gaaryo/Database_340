@@ -18,7 +18,10 @@ app.set("view engine", ".hbs");
     ROUTES
 */
 app.get("/", function (req, res) {
-  res.render("index");
+  let query1 = "SELECT * FROM Tournaments";
+  db.pool.query(query1, function (error, rows, fields) {
+    res.render("index", { data: rows });
+  });
 });
 
 /*
