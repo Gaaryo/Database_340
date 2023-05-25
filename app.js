@@ -25,16 +25,12 @@ app.get("/", function (req, res) {
 
   // DROP TABLE...
   db.pool.query(query1, function (err, results, fields) {
-    console.log(results);
     // CREATE TABLE...
     db.pool.query(query2, function (err, results, fields) {
-      console.log(results);
       // INSERT INTO...
       db.pool.query(query3, function (err, results, fields) {
-        console.log(results);
         // SELECT *...
         db.pool.query(query4, function (err, results, fields) {
-          console.log(results);
           // Send the results to the browser
           res.send(JSON.stringify(results));
         });
