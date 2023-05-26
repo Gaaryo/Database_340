@@ -29,24 +29,24 @@ app.get("/", function (req, res) {
 
 // app.js - ROUTES section
 
-app.post("/add-tournament", function (req, res) {
+app.post("/add-tournament-ajax", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   let data = req.body;
 
   // Capture NULL values
-  let homeworld = parseInt(data.homeworld);
-  if (isNaN(homeworld)) {
-    homeworld = "NULL";
+  let point = parseInt(data.point);
+  if (isNaN(point)) {
+    point = "NULL";
   }
 
-  let age = parseInt(data.age);
-  if (isNaN(age)) {
-    age = "NULL";
+  let sponsor = parseInt(data.sponsor);
+  if (isNaN(sponsor)) {
+    sponsor = "NULL";
   }
 
   // Create the query and run it on the database
   query1 =
-    `INSERT INTO Tournaments (year, tournament_point, venue, sponsor_id) VALUES ('${data.year}', '${data.point}', ${data.venue}, ${data.sponsor})`;
+    `INSERT INTO Tournaments (year, tournament_point, venue, sponsor_id) VALUES ('${data.year}', '${point}', '${data.venue}', '${sponsor}')`;
   db.pool.query(query1, function (error, rows, fields) {
     // Check to see if there was an error
     if (error) {

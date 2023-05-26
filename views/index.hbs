@@ -40,10 +40,10 @@
 <p>To add a new tournament, please enter their information below and click 'Submit'!</p>
 <form id="add-tournament-form-ajax">
     <label for="input-year">Year: </label>
-    <input type="date" name="input-year" id="input-year">
+    <input type="number" min="1000" max="10000" step="1" name="input-year" id="input-year">
     
     <label for="input-point">Points: </label>
-    <input type="number" name="input-point" id="input-point">
+    <input type="text" name="input-point" id="input-point">
     
     <label for="input-venue">Venue: </label>
     <input type="text" name="input-venue" id="input-venue">

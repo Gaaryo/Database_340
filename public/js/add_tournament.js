@@ -7,10 +7,10 @@ addTournamentForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   // Get form fields we need to get data from
-  let inputYear = document.getElementById("input-fname");
-  let inputPoint = document.getElementById("input-lname");
-  let inputVenue = document.getElementById("input-homeworld");
-  let InputSponsor = document.getElementById("input-age");
+  let inputYear = document.getElementById("input-year");
+  let inputPoint = document.getElementById("input-point");
+  let inputVenue = document.getElementById("input-venue");
+  let InputSponsor = document.getElementById("input-sponsor");
 
   // Get the values from the form fields
   let firstNameValue = inputYear.value;
