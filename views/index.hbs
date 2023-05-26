@@ -1,9 +1,8 @@
-<!-- index.hbs -->
-<h1>The server is running!</h1>
-<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+<!-- /views/index.hbs -->
+
 
 {{!-- Create a table --}}
-<table>
+<table id="people-table">
 
     {{!-- Header section --}}
     <thead>
@@ -34,3 +33,26 @@
         {{/each}}
     </tbody>
 </table>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data with AJAX</h2>
+<p>To add a new tournament, please enter their information below and click 'Submit'!</p>
+<form id="add-tournament-form-ajax">
+    <label for="input-year">Year: </label>
+    <input type="date" name="input-year" id="input-year">
+    
+    <label for="input-point">Points: </label>
+    <input type="number" name="input-point" id="input-point">
+    
+    <label for="input-venue">Venue: </label>
+    <input type="text" name="input-venue" id="input-venue">
+    
+    <label for="input-sponsor">Sponsor: </label>
+    <input type="number" name="input-sponsor" id="input-sponsor">
+    
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_tournament.js"></script>
