@@ -1,3 +1,4 @@
 .sqllsrc.json
 node_modules/
 text.sql
+.pdf
