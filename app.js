@@ -11,7 +11,7 @@ var app = express(); // We need to instantiate an express object to interact wit
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-PORT = 50105; // Set a port number at the top so it's easy to change in the future
+PORT = 50505; // Set a port number at the top so it's easy to change in the future
 const { engine } = require("express-handlebars");
 var exphbs = require("express-handlebars");
 app.engine(".hbs", engine({ extname: ".hbs" }));
@@ -33,6 +33,8 @@ app.post("/add-tournament-ajax", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   let data = req.body;
 
+  console.log(req.body);
+
   // Capture NULL values
   let point = parseInt(data.point);
   if (isNaN(point)) {
@@ -50,8 +52,8 @@ app.post("/add-tournament-ajax", function (req, res) {
   db.pool.query(query1, function (error, rows, fields) {
     // Check to see if there was an error
     if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
       console.log(error);
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
       res.sendStatus(400);
     } else {
       // If there was no error, perform a SELECT * on Tournaments
@@ -59,8 +61,8 @@ app.post("/add-tournament-ajax", function (req, res) {
       db.pool.query(query2, function (error, rows, fields) {
         // If there was an error on the second query, send a 400
         if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
           console.log(error);
+          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
           res.sendStatus(400);
         } // If all went well, send the results of the query back.
         else {

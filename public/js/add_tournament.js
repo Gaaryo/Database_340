@@ -13,17 +13,17 @@ addTournamentForm.addEventListener("submit", function (e) {
   let InputSponsor = document.getElementById("input-sponsor");
 
   // Get the values from the form fields
-  let firstNameValue = inputYear.value;
-  let lastNameValue = inputPoint.value;
-  let homeworldValue = inputVenue.value;
-  let ageValue = InputSponsor.value;
+  let yearValue = inputYear.value;
+  let pointValue = inputPoint.value;
+  let venueValue = inputVenue.value;
+  let sponsorValue = InputSponsor.value;
 
   // Put our data we want to send in a javascript object
   let data = {
-    fname: firstNameValue,
-    lname: lastNameValue,
-    homeworld: homeworldValue,
-    age: ageValue,
+    year: yearValue,
+    point: pointValue,
+    venue: venueValue,
+    sponsor_id: sponsorValue,
   };
 
   // Setup our AJAX request
