@@ -24,9 +24,7 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr>
-            <td>{{this.tournament_id}}</td>
             <td>{{this.year}}</td>
-            <td>{{this.tournament_point}}</td>
             <td>{{this.venue}}</td>
             <td>{{this.sponsor_id}}</td>
         </tr>
@@ -41,9 +39,6 @@
 <form id="add-tournament-form-ajax">
     <label for="input-year">Year: </label>
     <input type="number" min="1000" max="10000" step="1" name="input-year" id="input-year">
-    
-    <label for="input-point">Points: </label>
-    <input type="text" name="input-point" id="input-point">
     
     <label for="input-venue">Venue: </label>
     <input type="text" name="input-venue" id="input-venue">

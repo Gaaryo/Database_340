@@ -8,20 +8,17 @@ addTournamentForm.addEventListener("submit", function (e) {
 
   // Get form fields we need to get data from
   const inputYear = document.getElementById("input-year");
-  const inputPoint = document.getElementById("input-point");
   const inputVenue = document.getElementById("input-venue");
   const InputSponsor = document.getElementById("input-sponsor");
 
   // Get the values from the form fields
   const yearValue = inputYear.value;
-  const pointValue = inputPoint.value;
   const venueValue = inputVenue.value;
   const sponsorValue = InputSponsor.value;
 
   // Put our data we want to send in a javascript object
   const data = {
     year: yearValue,
-    point: pointValue,
     venue: venueValue,
     sponsor_id: sponsorValue,
   };
@@ -39,7 +36,6 @@ addTournamentForm.addEventListener("submit", function (e) {
 
       // Clear the input fields for another transaction
       inputYear.value = "";
-      inputPoint.value = "";
       inputVenue.value = "";
       InputSponsor.value = "";
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {

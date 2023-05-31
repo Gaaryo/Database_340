@@ -33,11 +33,6 @@ app.post("/add-tournament-ajax", function (req, res) {
   console.log(req.body);
 
   // Capture NULL values
-  let point = parseInt(data.point);
-  if (isNaN(point)) {
-    point = "NULL";
-  }
-
   let sponsor = parseInt(data.sponsor);
   if (isNaN(sponsor)) {
     sponsor = "NULL";
@@ -45,7 +40,7 @@ app.post("/add-tournament-ajax", function (req, res) {
 
   // Create the query and run it on the database
   query1 =
-    `INSERT INTO Tournaments (year, tournament_point, venue, sponsor_id) VALUES ('${data.year}', '${point}', '${data.venue}', '${sponsor}')`;
+    `INSERT INTO Tournaments (year, venue, sponsor_id) VALUES ('${data.year}', '${data.venue}', '${sponsor}')`;
   db.pool.query(query1, function (error, _rows, _fields) {
     // Check to see if there was an error
     if (error) {
