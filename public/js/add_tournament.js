@@ -1,5 +1,5 @@
 // Get the objects we need to modify
-let addTournamentForm = document.getElementById("add-tournament-form-ajax");
+const addTournamentForm = document.getElementById("add-tournament-form-ajax");
 
 // Modify the objects we need
 addTournamentForm.addEventListener("submit", function (e) {
@@ -7,19 +7,19 @@ addTournamentForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   // Get form fields we need to get data from
-  let inputYear = document.getElementById("input-year");
-  let inputPoint = document.getElementById("input-point");
-  let inputVenue = document.getElementById("input-venue");
-  let InputSponsor = document.getElementById("input-sponsor");
+  const inputYear = document.getElementById("input-year");
+  const inputPoint = document.getElementById("input-point");
+  const inputVenue = document.getElementById("input-venue");
+  const InputSponsor = document.getElementById("input-sponsor");
 
   // Get the values from the form fields
-  let yearValue = inputYear.value;
-  let pointValue = inputPoint.value;
-  let venueValue = inputVenue.value;
-  let sponsorValue = InputSponsor.value;
+  const yearValue = inputYear.value;
+  const pointValue = inputPoint.value;
+  const venueValue = inputVenue.value;
+  const sponsorValue = InputSponsor.value;
 
   // Put our data we want to send in a javascript object
-  let data = {
+  const data = {
     year: yearValue,
     point: pointValue,
     venue: venueValue,
@@ -27,7 +27,7 @@ addTournamentForm.addEventListener("submit", function (e) {
   };
 
   // Setup our AJAX request
-  var xhttp = new XMLHttpRequest();
+  const xhttp = new XMLHttpRequest();
   xhttp.open("POST", "/add-tournament-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");
 
@@ -55,22 +55,22 @@ addTournamentForm.addEventListener("submit", function (e) {
 // bsg_touraments
 addRowToTable = (data) => {
   // Get a reference to the current table on the page and clear it out.
-  let currentTable = document.getElementById("touraments-table");
+  const currentTable = document.getElementById("touraments-table");
 
   // Get the location where we should insert the new row (end of table)
-  let newRowIndex = currentTable.rows.length;
+  const _newRowIndex = currentTable.rows.length;
 
   // Get a reference to the new row from the database query (last object)
-  let parsedData = JSON.parse(data);
-  let newRow = parsedData[parsedData.length - 1];
+  const parsedData = JSON.parse(data);
+  const newRow = parsedData[parsedData.length - 1];
 
   // Create a row and 4 cells
-  let row = document.createElement("TR");
-  let idCell = document.createElement("TD");
-  let firstNameCell = document.createElement("TD");
-  let lastNameCell = document.createElement("TD");
-  let homeworldCell = document.createElement("TD");
-  let ageCell = document.createElement("TD");
+  const row = document.createElement("TR");
+  const idCell = document.createElement("TD");
+  const firstNameCell = document.createElement("TD");
+  const lastNameCell = document.createElement("TD");
+  const homeworldCell = document.createElement("TD");
+  const ageCell = document.createElement("TD");
 
   // Fill the cells with correct data
   idCell.innerText = newRow.id;
