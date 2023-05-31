@@ -67,7 +67,6 @@ addRowToTable = (data) => {
   const sponsorCell = document.createElement("TD");
 
   // Fill the cells with correct data
-  ageCell.innerText = newRow.age;
   yearCell.innerText = newRow.year;
   venueCell.innerText = newRow.venue;
   sponsorCell.innerText = newRow.sponsor_id;
