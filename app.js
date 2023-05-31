@@ -33,10 +33,11 @@ app.post("/add-tournament-ajax", function (req, res) {
   console.log(req.body);
 
   // Capture NULL values
-  let sponsor = parseInt(data.sponsor);
+  let sponsor = parseInt(data.sponsor_id);
   if (isNaN(sponsor)) {
     sponsor = "NULL";
   }
+  console.log(sponsor);
 
   // Create the query and run it on the database
   query1 =
@@ -44,6 +45,7 @@ app.post("/add-tournament-ajax", function (req, res) {
   db.pool.query(query1, function (error, _rows, _fields) {
     // Check to see if there was an error
     if (error) {
+          console.log(error);
       // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
       res.sendStatus(400);
     } else {
