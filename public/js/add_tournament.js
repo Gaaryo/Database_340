@@ -51,7 +51,7 @@ addTournamentForm.addEventListener("submit", function (e) {
 // bsg_touraments
 addRowToTable = (data) => {
   // Get a reference to the current table on the page and clear it out.
-  const currentTable = document.getElementById("touraments-table");
+  const currentTable = document.getElementById("tournaments-table");
 
   // Get the location where we should insert the new row (end of table)
   const _newRowIndex = currentTable.rows.length;
