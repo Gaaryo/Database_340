@@ -62,25 +62,20 @@ addRowToTable = (data) => {
 
   // Create a row and 4 cells
   const row = document.createElement("TR");
-  const idCell = document.createElement("TD");
-  const firstNameCell = document.createElement("TD");
-  const lastNameCell = document.createElement("TD");
-  const homeworldCell = document.createElement("TD");
-  const ageCell = document.createElement("TD");
+  const yearCell = document.createElement("TD");
+  const venueCell = document.createElement("TD");
+  const sponsorCell = document.createElement("TD");
 
   // Fill the cells with correct data
-  idCell.innerText = newRow.id;
-  firstNameCell.innerText = newRow.fname;
-  lastNameCell.innerText = newRow.lname;
-  homeworldCell.innerText = newRow.homeworld;
   ageCell.innerText = newRow.age;
+  yearCell.innerText = newRow.year;
+  venueCell.innerText = newRow.venue;
+  sponsorCell.innerText = newRow.sponsor_id;
 
   // Add the cells to the row
-  row.appendChild(idCell);
-  row.appendChild(firstNameCell);
-  row.appendChild(lastNameCell);
-  row.appendChild(homeworldCell);
-  row.appendChild(ageCell);
+  row.appendChild(yearCell);
+  row.appendChild(venueCell);
+  row.appendChild(sponsorCell);
 
   // Add the row to the table
   currentTable.appendChild(row);
