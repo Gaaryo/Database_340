@@ -1,8 +1,7 @@
 // Creates a single row from an Object representing a single record from
-// bsg_people
 addRowToTable = (data) => {
   // Get a reference to the current table on the page and clear it out.
-  let currentTable = document.getElementById("coaches-table");
+  let currentTable = document.getElementById("offerings-table");
 
   // Get the location where we should insert the new row (end of table)
   let newRowIndex = currentTable.rows.length;
@@ -14,15 +13,13 @@ addRowToTable = (data) => {
   // Create a row and 4 cells
   let row = document.createElement("TR");
   let idCell = document.createElement("TD");
-  let firstNameCell = document.createElement("TD");
-  let lastNameCell = document.createElement("TD");
+  let stuffCell = document.createElement("TD");
 
   let deleteCell = document.createElement("TD");
 
   // Fill the cells with correct data
   idCell.innerText = newRow.id;
-  firstNameCell.innerText = newRow.first_name;
-  lastNameCell.innerText = newRow.last_name;
+  stuffCell.innerText = newRow.stuff;
 
   deleteCell = document.createElement("button");
   deleteCell.innerHTML = "Delete";
@@ -32,8 +29,7 @@ addRowToTable = (data) => {
 
   // Add the cells to the row
   row.appendChild(idCell);
-  row.appendChild(firstNameCell);
-  row.appendChild(lastNameCell);
+  row.appendChild(stuffCell);
   row.appendChild(deleteCell);
 
   // Add a row attribute so the deleteRow function can find a newly added row
@@ -42,4 +38,3 @@ addRowToTable = (data) => {
   // Add the row to the table
   currentTable.appendChild(row);
 };
-

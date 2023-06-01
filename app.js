@@ -4,16 +4,15 @@
     SETUP
 */
 
-var express = require('express');   // We are using the express library for the web server
-var app     = express();            // We need to instantiate an express object to interact with the server in our code
+var express = require("express"); // We are using the express library for the web server
+var app = express(); // We need to instantiate an express object to interact with the server in our code
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-
-PORT        = 9131;                 // Set a port number at the top so it's easy to change in the future
-var db = require('./database/db-connector')
+PORT = 9131; // Set a port number at the top so it's easy to change in the future
+var db = require("./database/db-connector");
 
 const { engine } = require("express-handlebars");
 var exphbs = require("express-handlebars");
@@ -25,229 +24,246 @@ app.set("view engine", ".hbs");
 
 // app.js
 
-app.get('/', function(req, res)
-    {  
-        res.render('index');                                                     // an object where 'data' is equal to the 'rows' we
-    });
-
-app.get('/tournamentsEdit', function(req, res)
-    {  
-            res.render('tournamentsEdit');                  
-    });
-
-app.get('/playersEdit', function(req, res)
-    {  
-            res.render('playersEdit');                  
-    });
-
-app.get('/coachesEdit', function(req, res)
-{  
-    let query1 = "SELECT * FROM Coaches;";               // Define our query
-
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
-        //console.log(rows)
-        res.render('coachesEdit', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    
-    })                                                      
+app.get("/", function (req, res) {
+  res.render("index"); // an object where 'data' is equal to the 'rows' we
 });
 
-app.get('/matchesEdit', function(req, res)
-    {  
-        let query1 = "SELECT * FROM Matches;";               // Define our query
+app.get("/tournamentsEdit", function (req, res) {
+  res.render("tournamentsEdit");
+});
 
-        //db.pool.query(query1, function(error, rows, fields){    // Execute the query
-        //    res.render('matchesEdit', {data: rows});                  
-        
-        //}) 
-        
-        let query2 = "SELECT * FROM Players;";
-            // Run the 1st query
-        db.pool.query(query1, function(error, rows, fields){
-            
-            // Save the matches
-            let matches = rows;
-            
-            // Run the second query
-            db.pool.query(query2, (error, rows, fields) => {
-                
-                // Save the players
-                let players = rows;
+app.get("/playersEdit", function (req, res) {
+  res.render("playersEdit");
+});
 
-                // Construct an object for reference in the table
-                // Array.map is awesome for doing something with each
-                // element of an array.
-                let playermap = {}
-                players.map(player => {
-                    let id = parseInt(player.player_id, 10);
+app.get("/coachesEdit", function (req, res) {
+  let query1 = "SELECT * FROM Coaches;"; // Define our query
 
-                    playermap[id] = player["first_name"] + " " + player["last_name"];
-                })
+  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+    //console.log(rows)
+    res.render("coachesEdit", { data: rows }); // Render the index.hbs file, and also send the renderer
+  });
+});
 
-                // Overwrite the homeworld ID with the name of the planet in the people object
-                matches = matches.map(match => {
-                    return Object.assign(match, {player1: playermap[match.player1]})
-                })
+app.get("/matchesEdit", function (req, res) {
+  let query1 = "SELECT * FROM Matches;"; // Define our query
 
-                matches = matches.map(match => {
-                    return Object.assign(match, {player2: playermap[match.player2]})
-                })
+  //db.pool.query(query1, function(error, rows, fields){    // Execute the query
+  //    res.render('matchesEdit', {data: rows});
 
-                matches = matches.map(match => {
-                    return Object.assign(match, {winner: playermap[match.winner]})
-                })
+  //})
 
-                return res.render('matchesEdit', {data: matches, players: players});
-            })
-        })
+  let query2 = "SELECT * FROM Players;";
+  // Run the 1st query
+  db.pool.query(query1, function (error, rows, fields) {
+    // Save the matches
+    let matches = rows;
+
+    // Run the second query
+    db.pool.query(query2, (error, rows, fields) => {
+      // Save the players
+      let players = rows;
+
+      // Construct an object for reference in the table
+      // Array.map is awesome for doing something with each
+      // element of an array.
+      let playermap = {};
+      players.map((player) => {
+        let id = parseInt(player.player_id, 10);
+
+        playermap[id] = player["first_name"] + " " + player["last_name"];
+      });
+
+      // Overwrite the homeworld ID with the name of the planet in the people object
+      matches = matches.map((match) => {
+        return Object.assign(match, { player1: playermap[match.player1] });
+      });
+
+      matches = matches.map((match) => {
+        return Object.assign(match, { player2: playermap[match.player2] });
+      });
+
+      matches = matches.map((match) => {
+        return Object.assign(match, { winner: playermap[match.winner] });
+      });
+
+      return res.render("matchesEdit", { data: matches, players: players });
     });
+  });
+});
 
-app.get('/sponsorsEdit', function(req, res)
-    {  
-            res.render('sponsorsEdit');                  
-    });
+app.get("/sponsorsEdit", function (req, res) {
+  res.render("sponsorsEdit");
+});
 
-app.get('/offeringsEdit', function(req, res)
-    {  
-            res.render('offeringsEdit');                  
-    });
+app.get("/offeringsEdit", function (req, res) {
+  let query1 = "SELECT * FROM Offerings;"; // Define our query
+
+  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+    res.render("offeringsEdit", { data: rows });
+  });
+});
 
 //View pages
 
-app.get('/tournamentsView', function(req, res)
-    {  
-            res.render('tournamentsView');                  
-    });
+app.get("/tournamentsView", function (req, res) {
+  res.render("tournamentsView");
+});
 
-app.get('/playersView', function(req, res)
-    {  
-            res.render('playersView');                  
-    });
+app.get("/playersView", function (req, res) {
+  res.render("playersView");
+});
 
-app.get('/coachesView', function(req, res)
-    {  
-        let query1 = "SELECT * FROM Coaches;";               // Define our query
+app.get("/coachesView", function (req, res) {
+  let query1 = "SELECT * FROM Coaches;"; // Define our query
 
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-            res.render('coachesView', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        
-        })                   
-    });
+  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+    res.render("coachesView", { data: rows }); // Render the index.hbs file, and also send the renderer
+  });
+});
 
-app.get('/matchesView', function(req, res)
-    {  
-            res.render('matchesView');                  
-    });
+app.get("/matchesView", function (req, res) {
+  res.render("matchesView");
+});
 
-app.get('/sponsorsView', function(req, res)
-    {  
-            res.render('sponsorsView');                  
-    });
+app.get("/sponsorsView", function (req, res) {
+  res.render("sponsorsView");
+});
 
-app.get('/offeringsView', function(req, res)
-    {  
-            res.render('offeringsView');                  
-    });
+app.get("/offeringsView", function (req, res) {
+  res.render("offeringsView");
+});
 
 //Test file
 
-app.get('/test', function(req, res)
-{  
-    let query1 = "SELECT * FROM Coaches;";               // Define our query
+app.get("/test", function (req, res) {
+  let query1 = "SELECT * FROM Coaches;"; // Define our query
 
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
-        //console.log(rows)
-        res.render('coaches', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    
-    })                                                      // an object where 'data' is equal to the 'rows' we
+  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+    //console.log(rows)
+    res.render("coaches", { data: rows }); // Render the index.hbs file, and also send the renderer
+  }); // an object where 'data' is equal to the 'rows' we
 });
 
-app.delete('/delete-coach-ajax/', function(req,res,next){
-    let data = req.body;
-    let personID = parseInt(data.id);
-    let deleteBsg_Coaches= `DELETE FROM Coaches WHERE coach_id = ?`;
-    
-    
+app.delete("/delete-coach-ajax/", function (req, res, next) {
+  let data = req.body;
+  let personID = parseInt(data.id);
+  let deleteBsg_Coaches = `DELETE FROM Coaches WHERE coach_id = ?`;
 
-db.pool.query(deleteBsg_Coaches, [personID], function(error, rows, fields) {
-
+  db.pool.query(deleteBsg_Coaches, [personID], function (error, rows, fields) {
     if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      res.sendStatus(204);
+    }
+  });
+});
+
+app.delete("/delete-offering-ajax/", function (req, res, next) {
+  let data = req.body;
+  let offeringID = parseInt(data.id);
+  let deleteBsg_Offerings = `DELETE FROM Offerings WHERE offering_id = ?`;
+
+  db.pool.query(
+    deleteBsg_Offerings,
+    [offeringID],
+    function (error, rows, fields) {
+      if (error) {
         console.log(error);
         res.sendStatus(400);
-    } else {
+      } else {
         res.sendStatus(204);
-    }
-})
-                
+      }
+    },
+  );
 });
 
-app.delete('/delete-match-ajax/', function(req,res,next){
-    let data = req.body;
-    let matchID = parseInt(data.id);
-    let deleteBsg_Matches= `DELETE FROM Matches WHERE match_id = ?`;
-    
-    
+app.delete("/delete-match-ajax/", function (req, res, next) {
+  let data = req.body;
+  let matchID = parseInt(data.id);
+  let deleteBsg_Matches = `DELETE FROM Matches WHERE match_id = ?`;
 
-db.pool.query(deleteBsg_Matches, [matchID], function(error, rows, fields) {
-
+  db.pool.query(deleteBsg_Matches, [matchID], function (error, rows, fields) {
     if (error) {
-        console.log(error);
-        res.sendStatus(400);
+      console.log(error);
+      res.sendStatus(400);
     } else {
-        res.sendStatus(204);
+      res.sendStatus(204);
     }
-})
-                
+  });
 });
 
-app.post('/add-coach-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
+app.post("/add-coach-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  let data = req.body;
 
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Coaches (first_name, last_name) VALUES ('${data['input-first_name']}', '${data['input-last_name']}')`;
-    db.pool.query(query1, function(error, rows, fields){
+  // Create the query and run it on the database
+  query1 = `INSERT INTO Coaches (first_name, last_name) VALUES ('${
+    data["input-first_name"]
+  }', '${data["input-last_name"]}')`;
+  db.pool.query(query1, function (error, rows, fields) {
+    // Check to see if there was an error
+    if (error) {
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+    // presents it on the screen
+    else {
+      res.redirect("/coachesEdit");
+    }
+  });
+});
 
-        // Check to see if there was an error
-        if (error) {
+app.post("/add-offering-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  let data = req.body;
+  console.log(data);
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
+  // Create the query and run it on the database
+  query1 = `INSERT INTO Offerings (stuff) VALUES ('${data["input-stuff"]}');`;
+  db.pool.query(query1, function (error, rows, fields) {
+    console.log(error);
+    // Check to see if there was an error
+    if (error) {
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+    // presents it on the screen
+    else {
+      res.redirect("/offeringsEdit");
+    }
+  });
+});
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else
-        {
-            res.redirect('/coachesEdit');
-        }
-    })
-})
+app.post("/add-match-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  let data = req.body;
 
-
-app.post('/add-match-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-    query1 = `INSERT INTO Matches (date, player1, player2, winner, score, year) VALUES ('${data['input-date']}', ${data['input-player1']}, ${data['input-player2']}, ${data['input-winner']}, '${data['input-score']}', '${data['input-year']}' )`;
-    db.pool.query(query1, function(error, rows, fields){
-
-        if (error) {
-
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        else
-        {
-            res.redirect('/matchesEdit');
-        }
-    })
-})
+  query1 =
+    `INSERT INTO Matches (date, player1, player2, winner, score, year) VALUES ('${
+      data["input-date"]
+    }', ${data["input-player1"]}, ${data["input-player2"]}, ${
+      data["input-winner"]
+    }, '${data["input-score"]}', '${data["input-year"]}' )`;
+  db.pool.query(query1, function (error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      res.redirect("/matchesEdit");
+    }
+  });
+});
 
 /*
     LISTENER
 */
-app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
-    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
+app.listen(PORT, function () { // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
+  console.log(
+    "Express started on http://localhost:" + PORT +
+      "; press Ctrl-C to terminate.",
+  );
 });

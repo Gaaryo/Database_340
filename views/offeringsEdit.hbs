@@ -11,16 +11,16 @@
                 Offerings Edit
             </h2>
             <div class="create">
-                <form>
+                <form id="add-offering-form" method="POST" action="/add-offering-form">
                     <h3>Create New Data</h3>
                     <div class="u_input">
-                        <label>Offering</label>
-                        <input>
+                        <label for="input-stuff">Offering</label>
+                        <input name="input-stuff" id="input-stuff">
                         <p>*require</p>
                     </div>
                     
-                    
-                    <button>Create Data</button>
+                    <input type="submit">
+                    <!--<button>Create Data</button>-->
                 </form>
             </div>
 
@@ -45,47 +45,32 @@
             
             
             <div>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Offering</th>
+                <table id="offerings-table">
+                    <thead>
+                        <tr>
+                            
+                            <th>ID</th>
+                            <th>Offering</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
 
-                        <th>Delete</th>
-                        
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Money</td>
+                    {{!-- Body section --}}
+                    <tbody>
 
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Balls</td>
-                        
-                        
-
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Socks</td>
-                        
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Volunteers</td>
-
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
+                        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                        {{#each data}}
+                        <tr data-value={{this.offering_id}}>
+                            <td>{{this.offering_id}}</td>
+                            <td>{{this.stuff}}</td>
+                            <td><button class= "delete_button" onclick="deleteOffering({{this.offering_id}})"> - </button></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
                 </table>
+                <script src="./js/delete_offering.js"></script>
             </div>
             
         </div>
-        
-        
-
-
     </body>
 </html>
