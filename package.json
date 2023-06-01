@@ -1,18 +1,17 @@
 {
-  "name": "database_340",
+  "name": "cs340_halfway",
   "version": "1.0.0",
-  "description": "This is a repository for CS340 Database course.  The Team members are Zane Gant and Ryoga Ojima",
-  "main": "index.js",
+  "description": "",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Ryoga Ojima",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
-    "forever": "^0.14.2",
-    "mysql": "^2.18.1",
-    "stable": "^0.1.8"
+    "forever": "^4.0.3",
+    "mysql": "^2.18.1"
   }
 }

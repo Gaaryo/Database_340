@@ -1,58 +1,21 @@
-<!-- /views/index.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home Page</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        
+        
+        <div class="contents">
+            <h2>
+                Overview
+            </h2>
+            <p>
+                A tennis based sports website wants to enable users to find various information about past tennis singles tournaments. Every year the organizers of the Z.R. Tournament offer 8 of the highest ranking players a place in their tournament. If some players turn down the offer, the organizers offer the next player who has the most points. So, there are always 8 players in this tournament. Users should be able to find who sponsored a given tournament, who played in the tournament, and who was in/won each match. Users should also be able to find who coached each of the players.
+            </p>
+        </div>
+        
 
-
-{{!-- Create a table --}}
-<table id="people-table">
-
-    {{!-- Header section --}}
-    <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-        </tr>
-    </thead>
-
-    {{!-- Body section --}}
-    <tbody>
-
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-        {{#each data}}
-        <tr>
-            <td>{{this.tournament_id}}</td>
-            <td>{{this.year}}</td>
-            <td>{{this.tournament_point}}</td>
-            <td>{{this.venue}}</td>
-            <td>{{this.sponsor_id}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-
-
-{{!-- Form to add a record to the table  --}}
-<h2>Adding Data with AJAX</h2>
-<p>To add a new tournament, please enter their information below and click 'Submit'!</p>
-<form id="add-tournament-form-ajax">
-    <label for="input-year">Year: </label>
-    <input type="number" min="1000" max="10000" step="1" name="input-year" id="input-year">
-    
-    <label for="input-point">Points: </label>
-    <input type="text" name="input-point" id="input-point">
-    
-    <label for="input-venue">Venue: </label>
-    <input type="text" name="input-venue" id="input-venue">
-    
-    <label for="input-sponsor">Sponsor: </label>
-    <input type="number" name="input-sponsor" id="input-sponsor">
-    
-    <input type="submit">
-</form>
-
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_tournament.js"></script>
+    </body>
+</html>

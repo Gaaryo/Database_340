@@ -51,14 +51,14 @@ CREATE TABLE Players (
   coach_id int(11),
 
   PRIMARY KEY (player_id),
-  FOREIGN KEY (coach_id) REFERENCES Coaches(coach_id)
+  FOREIGN KEY (coach_id) REFERENCES Coaches(coach_id) ON DELETE SET NULL 
 );
 
 
 DROP TABLE IF EXISTS Matches;
 CREATE TABLE Matches (
     match_id int(11) NOT NULL AUTO_INCREMENT,
-    date date NOT NULL,
+    date DATE NOT NULL,
     player1 int(11) NOT NULL,
     player2 int(11) NOT NULL,
     winner int(11) NOT NULL,
@@ -111,21 +111,21 @@ VALUES (2018, 'New York Tennis Garden', 1),
 (2022, 'Los Angeles Tennis Park', 3);
 
 INSERT INTO Matches (date, player1, player2, winner, score, year)
-VALUES ('9/20/2019',
+VALUES ('2019/9/20',
     (SELECT player_id FROM Players WHERE first_name = 'Roger' AND last_name = 'Federer'),
     (SELECT player_id FROM Players WHERE first_name = 'Novac' AND last_name = 'Djokovic'),
     (SELECT player_id FROM Players WHERE first_name = 'Novac' AND last_name = 'Djokovic'),
     '6-1, 6-4',
     (SELECT year FROM Tournaments WHERE year = '2019')),
 (
-    '9/20/2021',
+    '2021/9/20',
     (SELECT player_id FROM Players WHERE first_name = 'Rafael' AND last_name = 'Nadal'),
     (SELECT player_id FROM Players WHERE first_name = 'Roger' AND last_name = 'Federer'),
     (SELECT player_id FROM Players WHERE first_name = 'Roger' AND last_name = 'Federer'),
     '6-3, 4-6, 7-5',
     (SELECT year FROM Tournaments WHERE year = '2021')),
 (
-    '9/28/2022',
+    '2022/9/28',
     (SELECT player_id FROM Players WHERE first_name = 'Novac' AND last_name = 'Djokovic'),
     (SELECT player_id FROM Players WHERE first_name = 'Rafael' AND last_name = 'Nadal'),
     (SELECT player_id FROM Players WHERE first_name = 'Rafael' AND last_name = 'Nadal'),

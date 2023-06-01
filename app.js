@@ -1,82 +1,253 @@
 // App.js
 
-// deno-lint-ignore-file no-var
-
 /*
     SETUP
 */
-var db = require("./database/db-connector.js");
-var express = require("express"); // We are using the express library for the web server
-var app = express(); // We need to instantiate an express object to interact with the server in our code
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-PORT = 50105; // Set a port number at the top so it's easy to change in the future
+
+var express = require('express');   // We are using the express library for the web server
+var app     = express();            // We need to instantiate an express object to interact with the server in our code
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
+
+
+PORT        = 9131;                 // Set a port number at the top so it's easy to change in the future
+var db = require('./database/db-connector')
+
 const { engine } = require("express-handlebars");
 var exphbs = require("express-handlebars");
 app.engine(".hbs", engine({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
-
 /*
     ROUTES
 */
-app.get("/", function (req, res) {
-  let query1 = "SELECT * FROM Tournaments";
-  db.pool.query(query1, function (error, rows, fields) {
-    res.render("index", { data: rows });
-  });
+
+// app.js
+
+app.get('/', function(req, res)
+    {  
+        res.render('index');                                                     // an object where 'data' is equal to the 'rows' we
+    });
+
+app.get('/tournamentsEdit', function(req, res)
+    {  
+            res.render('tournamentsEdit');                  
+    });
+
+app.get('/playersEdit', function(req, res)
+    {  
+            res.render('playersEdit');                  
+    });
+
+app.get('/coachesEdit', function(req, res)
+{  
+    let query1 = "SELECT * FROM Coaches;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+        //console.log(rows)
+        res.render('coachesEdit', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    
+    })                                                      
 });
 
-// app.js - ROUTES section
+app.get('/matchesEdit', function(req, res)
+    {  
+        let query1 = "SELECT * FROM Matches;";               // Define our query
 
-app.post("/add-tournament-ajax", function (req, res) {
-  // Capture the incoming data and parse it back to a JS object
-  let data = req.body;
+        //db.pool.query(query1, function(error, rows, fields){    // Execute the query
+        //    res.render('matchesEdit', {data: rows});                  
+        
+        //}) 
+        
+        let query2 = "SELECT * FROM Players;";
+            // Run the 1st query
+        db.pool.query(query1, function(error, rows, fields){
+            
+            // Save the matches
+            let matches = rows;
+            
+            // Run the second query
+            db.pool.query(query2, (error, rows, fields) => {
+                
+                // Save the players
+                let players = rows;
 
-  // Capture NULL values
-  let point = parseInt(data.point);
-  if (isNaN(point)) {
-    point = "NULL";
-  }
+                // Construct an object for reference in the table
+                // Array.map is awesome for doing something with each
+                // element of an array.
+                let playermap = {}
+                players.map(player => {
+                    let id = parseInt(player.player_id, 10);
 
-  let sponsor = parseInt(data.sponsor);
-  if (isNaN(sponsor)) {
-    sponsor = "NULL";
-  }
+                    playermap[id] = player["first_name"] + " " + player["last_name"];
+                })
 
-  // Create the query and run it on the database
-  query1 =
-    `INSERT INTO Tournaments (year, tournament_point, venue, sponsor_id) VALUES ('${data.year}', '${point}', '${data.venue}', '${sponsor}')`;
-  db.pool.query(query1, function (error, rows, fields) {
-    // Check to see if there was an error
+                // Overwrite the homeworld ID with the name of the planet in the people object
+                matches = matches.map(match => {
+                    return Object.assign(match, {player1: playermap[match.player1]})
+                })
+
+                matches = matches.map(match => {
+                    return Object.assign(match, {player2: playermap[match.player2]})
+                })
+
+                matches = matches.map(match => {
+                    return Object.assign(match, {winner: playermap[match.winner]})
+                })
+
+                return res.render('matchesEdit', {data: matches, players: players});
+            })
+        })
+    });
+
+app.get('/sponsorsEdit', function(req, res)
+    {  
+            res.render('sponsorsEdit');                  
+    });
+
+app.get('/offeringsEdit', function(req, res)
+    {  
+            res.render('offeringsEdit');                  
+    });
+
+//View pages
+
+app.get('/tournamentsView', function(req, res)
+    {  
+            res.render('tournamentsView');                  
+    });
+
+app.get('/playersView', function(req, res)
+    {  
+            res.render('playersView');                  
+    });
+
+app.get('/coachesView', function(req, res)
+    {  
+        let query1 = "SELECT * FROM Coaches;";               // Define our query
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+            res.render('coachesView', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        
+        })                   
+    });
+
+app.get('/matchesView', function(req, res)
+    {  
+            res.render('matchesView');                  
+    });
+
+app.get('/sponsorsView', function(req, res)
+    {  
+            res.render('sponsorsView');                  
+    });
+
+app.get('/offeringsView', function(req, res)
+    {  
+            res.render('offeringsView');                  
+    });
+
+//Test file
+
+app.get('/test', function(req, res)
+{  
+    let query1 = "SELECT * FROM Coaches;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+        //console.log(rows)
+        res.render('coaches', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});
+
+app.delete('/delete-coach-ajax/', function(req,res,next){
+    let data = req.body;
+    let personID = parseInt(data.id);
+    let deleteBsg_Coaches= `DELETE FROM Coaches WHERE coach_id = ?`;
+    
+    
+
+db.pool.query(deleteBsg_Coaches, [personID], function(error, rows, fields) {
+
     if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-      console.log(error);
-      res.sendStatus(400);
+        console.log(error);
+        res.sendStatus(400);
     } else {
-      // If there was no error, perform a SELECT * on Tournaments
-      query2 = `SELECT * FROM Tournaments;`;
-      db.pool.query(query2, function (error, rows, fields) {
-        // If there was an error on the second query, send a 400
-        if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-          console.log(error);
-          res.sendStatus(400);
-        } // If all went well, send the results of the query back.
-        else {
-          res.send(rows);
-        }
-      });
+        res.sendStatus(204);
     }
-  });
+})
+                
 });
+
+app.delete('/delete-match-ajax/', function(req,res,next){
+    let data = req.body;
+    let matchID = parseInt(data.id);
+    let deleteBsg_Matches= `DELETE FROM Matches WHERE match_id = ?`;
+    
+    
+
+db.pool.query(deleteBsg_Matches, [matchID], function(error, rows, fields) {
+
+    if (error) {
+        console.log(error);
+        res.sendStatus(400);
+    } else {
+        res.sendStatus(204);
+    }
+})
+                
+});
+
+app.post('/add-coach-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Coaches (first_name, last_name) VALUES ('${data['input-first_name']}', '${data['input-last_name']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/coachesEdit');
+        }
+    })
+})
+
+
+app.post('/add-match-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    query1 = `INSERT INTO Matches (date, player1, player2, winner, score, year) VALUES ('${data['input-date']}', ${data['input-player1']}, ${data['input-player2']}, ${data['input-winner']}, '${data['input-score']}', '${data['input-year']}' )`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        if (error) {
+
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            res.redirect('/matchesEdit');
+        }
+    })
+})
 
 /*
     LISTENER
 */
-app.listen(PORT, function () { // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
-  console.log(
-    "Express started on http://localhost:" + PORT +
-      "; press Ctrl-C to terminate.",
-  );
+app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
+    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });

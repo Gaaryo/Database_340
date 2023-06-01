@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Coaches View Page</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        
+        <div class="contents">
+            <h2>
+                Coaches View
+            </h2>
+
+            
+            <div>
+                <table id="coaches-table">
+                    <thead>
+
+                        <tr>
+                            
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                        </tr>
+                    </thead>
+
+                    {{!-- Body section --}}
+                    <tbody>
+
+                        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                        {{#each data}}
+                        <tr data-value={{this.coach_id}}>
+                            <td>{{this.coach_id}}</td>
+                            <td>{{this.first_name}}</td>
+                            <td>{{this.last_name}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+
+
+    </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Matches Edit Page</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        
+        <div class="contents">
+            <h2>
+                Matches Edit
+            </h2>
+            <div class="create">
+                <form id="add-match-form" method="POST" action="/add-match-form">
+                    <h3>Create New Data</h3>
+
+                    <div class="u_input">
+                        
+                        <label for="input-first_name">Date </label>
+                        <input type="date" name="input-date" id="input-date">
+                        <p>*require</p>
+                    </div>
+                    
+                    
+                    <div class="u_input">
+                        <label for="input-player1">Player1 </label>
+                        <input type="number" name="input-player1" id="input-player1">
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label for="input-player2">Player2 </label>
+                        <input type="number" name="input-player2" id="input-player2">
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label for="input-winner"> Winner </label>
+                        <input type="number" name="input-winner" id="input-winner">
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label for="input-score">Score </label>
+                        <input type="text" name="input-score" id="input-score">
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label for="input-year"> Year </label>
+                        <input type="YEAR" name="input-year" id="input-year">
+                        <p>*require</p>
+                    </div>
+                    
+                    <input type="submit">
+                </form>
+
+            </div>
+
+            <div class="edit">
+                <form>
+                    <h3>Edit Existing Data</h3>
+
+                    <div class="u_input">
+                        <label>ID(data you edit)</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+
+                    <div class="u_input">
+                        <label>Date</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    
+                    
+                    <div class="u_input">
+                        <label>Player1</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Player2</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Winner</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Score</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    <div class="u_input">
+                        <label>Year</label>
+                        <input>
+                        <p>*require</p>
+                    </div>
+                    
+                    <button>Edit Data</button>
+                </form>
+
+                
+
+
+                <form id="update-match-form-ajax">
+
+                    <label for="input-id">ID </label>
+                    <select name="input-id" id="mySelect">
+                        <option value="test">Select a ID</option>
+                        {{#each data}}
+                        <option value="{{this.id}}">{{this.id}}</option>
+                        {{/each}}
+                    </select>
+
+                    <label for="input-date">Date </label>
+                    <select name="input-homeworld" id="input-homeworld-update">
+                        <option>Select a Planet</option>
+                        {{#each planets}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    <input type="submit">
+
+                </form>
+
+            <script src="./js/update_person.js"></script>
+
+
+
+
+
+            </div>
+            
+
+            <div>
+                <table id="matches-table">
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Player1</th>
+                            <th>Player2</th>
+                            <th>Winner</th>
+                            <th>Score</th>
+                            <th>Year</th>
+
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+
+                    {{!-- Body section --}}
+                    <tbody>
+
+                        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                        {{#each data}}
+                        <tr data-value={{this.match_id}}>
+                            <td>{{this.match_id}}</td>
+                            <td>{{this.date}}</td>
+                            <td>{{this.player1}}</td>
+                            <td>{{this.player2}}</td>
+                            <td>{{this.winner}}</td>
+                            <td>{{this.score}}</td>
+                            <td>{{this.year}}</td>
+                            <td><button class= "delete_button" onclick="deleteMatch({{this.match_id}})"> - </button></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <script src="./js/delete_match.js"></script>
+            </div>
+            
+        </div>
+
+
+    </body>
+</html>

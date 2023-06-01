@@ -1,5 +1,3 @@
-<!-- main.hbs-->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +5,33 @@
     <title>Example App</title>
 </head>
 <body>
+    <h1>Tennis Tournament Database</h1>
+
+        <ul>
+            <li><a href = "index.html">Home</a></li>
+            <li>
+                <a href = "#">View Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "/tournamentsView">Tournaments</a></li>
+                    <li><a href = "/playersView">Players</a></li>
+                    <li><a href = "/coachesView">Coaches</a></li>
+                    <li><a href = "/matchesView">Matches</a></li>
+                    <li><a href = "/sponsorsView">Sponsors</a></li>
+                    <li><a href = "/offeringsView">Offerings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Edit Database &#9660;</a>
+                <ul class = "dropdown">
+                    <li><a href = "/tournamentsEdit">Tournaments</a></li>
+                    <li><a href = "/playersEdit">Players</a></li>
+                    <li><a href = "/coachesEdit">Coaches</a></li>
+                    <li><a href = "/matchesEdit">Matches</a></li>
+                    <li><a href = "/sponsorsEdit">Sponsors</a></li>
+                    <li><a href = "/offeringsEdit">Offerings</a></li>
+                </ul>
+            </li>
+        </ul>
 
     {{{body}}}
 
