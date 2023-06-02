@@ -201,6 +201,21 @@ app.delete("/delete-coach-ajax/", function (req, res, next) {
   });
 });
 
+app.delete("/delete-player-ajax/", function (req, res, next) {
+  let data = req.body;
+  let playerID = parseInt(data.player_id);
+  let delete_Players = `DELETE FROM Players WHERE player_id = ?`;
+
+  db.pool.query(delete_Players, [playerID], function (error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      res.sendStatus(204);
+    }
+  });
+});
+
 app.delete("/delete-offering-ajax/", function (req, res, next) {
   let data = req.body;
   let offeringID = parseInt(data.id);
