@@ -12,7 +12,7 @@
                 Players Edit
             </h2>
             <div class="create">
-                <form>
+                <form id="add-player-form" method="POST" action="/add-player-form">
                     <h3>Create New Data</h3>
                     <div class="u_input">
                         <label for="input-first_name">First Name</label>
@@ -41,7 +41,6 @@
                     <div class="u_input">
                         <label for="input-coach_last_name">Coach's Last Name</label>
                         <input name="input-coach_last_name" id="input-coach_last_name">
-                        <input>
                     </div>
                     
                     <input type="submit">
@@ -49,7 +48,7 @@
             </div>
 
             <div class="edit">
-                <form id="add-player-form" method="POST" action="/add-player-from">
+                <form>
                     <h3>Edit Existing Data</h3>
                     <div class="u_input">
                         <label>ID(data you edit)</label>
