@@ -36,7 +36,7 @@ app.get("/playersEdit", function (req, res) {
   let query1 = "SELECT * FROM Players;"; // Define our query
 
   db.pool.query(query1, function (error, rows, fields) { // Execute the query
-    res.render("playerEdit", { data: rows }); // Render the index.hbs file, and also send the renderer
+    res.render("playersEdit", { data: rows }); // Render the index.hbs file, and also send the renderer
   });
 });
 
