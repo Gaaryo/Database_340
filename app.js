@@ -219,6 +219,31 @@ app.post("/add-coach-form", function (req, res) {
   });
 });
 
+app.post("/add-player-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  let data = req.body;
+
+  // Create the query and run it on the database
+  query1 =
+    `INSERT INTO Players (first_name, last_name, nation, phone_num, coach_id) VALUES ('${
+      data["input-first_name"]
+    }', '${data["input-last_name"]}', '${data["input-nation"]}', '${
+      data["input-phone_number"]
+    }')`;
+  db.pool.query(query1, function (error, rows, fields) {
+    // Check to see if there was an error
+    if (error) {
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+    // presents it on the screen
+    else {
+      res.redirect("/coachesEdit");
+    }
+  });
+});
+
 app.post("/add-offering-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   let data = req.body;
