@@ -282,7 +282,7 @@ app.post("/add-player-form", function (req, res) {
       data["input-first_name"]
     }', '${data["input-last_name"]}', '${
       data["input-nation"]
-    }', '${phone_num}', (SELECT coach_id FROM Coaches WHERE Coaches.first_name = '${coach_fname}' AND  Coaches.last_name = '${coach_lname}');`;
+    }', '${phone_num}', (SELECT coach_id FROM Coaches WHERE Coaches.first_name = '${coach_fname}' AND  Coaches.last_name = '${coach_lname}'));`;
   db.pool.query(query1, function (error, rows, fields) {
     // Check to see if there was an error
     if (error) {
