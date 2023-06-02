@@ -125,50 +125,47 @@ app.get("/coachesView", function (req, res) {
   });
 });
 
-app.get('/matchesView', function(req, res)
-    {  
-        let query1 = "SELECT * FROM Matches;";               // Define our query
+app.get("/matchesView", function (req, res) {
+  let query1 = "SELECT * FROM Matches;"; // Define our query
 
-        let query2 = "SELECT * FROM Players;";
-            // Run the 1st query
-        db.pool.query(query1, function(error, rows, fields){
-            
-            // Save the matches
-            let matches = rows;
-            
-            // Run the second query
-            db.pool.query(query2, (error, rows, fields) => {
-                
-                // Save the players
-                let players = rows;
+  let query2 = "SELECT * FROM Players;";
+  // Run the 1st query
+  db.pool.query(query1, function (error, rows, fields) {
+    // Save the matches
+    let matches = rows;
 
-                // Construct an object for reference in the table
-                // Array.map is awesome for doing something with each
-                // element of an array.
-                let playermap = {}
-                players.map(player => {
-                    let id = parseInt(player.player_id, 10);
+    // Run the second query
+    db.pool.query(query2, (error, rows, fields) => {
+      // Save the players
+      let players = rows;
 
-                    playermap[id] = player["first_name"] + " " + player["last_name"];
-                })
+      // Construct an object for reference in the table
+      // Array.map is awesome for doing something with each
+      // element of an array.
+      let playermap = {};
+      players.map((player) => {
+        let id = parseInt(player.player_id, 10);
 
-                // Overwrite the homeworld ID with the name of the planet in the people object
-                matches = matches.map(match => {
-                    return Object.assign(match, {player1: playermap[match.player1]})
-                })
+        playermap[id] = player["first_name"] + " " + player["last_name"];
+      });
 
-                matches = matches.map(match => {
-                    return Object.assign(match, {player2: playermap[match.player2]})
-                })
+      // Overwrite the homeworld ID with the name of the planet in the people object
+      matches = matches.map((match) => {
+        return Object.assign(match, { player1: playermap[match.player1] });
+      });
 
-                matches = matches.map(match => {
-                    return Object.assign(match, {winner: playermap[match.winner]})
-                })
+      matches = matches.map((match) => {
+        return Object.assign(match, { player2: playermap[match.player2] });
+      });
 
-                return res.render('matchesView', {data: matches, players: players});
-            })
-        })                 
+      matches = matches.map((match) => {
+        return Object.assign(match, { winner: playermap[match.winner] });
+      });
+
+      return res.render("matchesView", { data: matches, players: players });
     });
+  });
+});
 
 app.get("/sponsorsView", function (req, res) {
   res.render("sponsorsView");
