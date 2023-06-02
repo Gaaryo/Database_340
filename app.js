@@ -261,18 +261,18 @@ app.post("/add-player-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   let data = req.body;
 
-  phone_num = req.body.phone_num.trim();
-  if (phone_num === "") {
+  phone_num = req.body.phone_num;
+  if ((phone_num == undefined) || (phone_num === "")) {
     phone_num = "NULL";
   }
 
-  coach_fname = req.body.coach_first_name.trim();
-  if (coach_fname === "") {
+  coach_fname = req.body.coach_first_name;
+  if ((coach_fname == undefined) || (coach_fname === "")) {
     coach_fname = "NULL";
   }
 
-  coach_lname = req.body.coach_last_name.trim();
-  if (coach_lname === "") {
+  coach_lname = req.body.coach_last_name;
+  if ((coach_lname == undefined) || (coach_lname === "")) {
     coach_lname = "NULL";
   }
 
