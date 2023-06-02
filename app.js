@@ -203,7 +203,7 @@ app.delete("/delete-coach-ajax/", function (req, res, next) {
 
 app.delete("/delete-player-ajax/", function (req, res, next) {
   let data = req.body;
-  let playerID = parseInt(data.player_id);
+  let playerID = parseInt(data.id);
   let delete_Players = `DELETE FROM Players WHERE player_id = ?`;
 
   db.pool.query(delete_Players, [playerID], function (error, rows, fields) {
