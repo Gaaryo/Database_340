@@ -91,52 +91,38 @@
             
             
             <div>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Nation</th>
-                        <th>Phone Num</th>
-                        <th>Coach First Name</th>
-                        <th>Coach Last Name</th>
+                <table id="players-table">
+                    <thead>
+                        <tr>
+                            
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Nation</th>
+                            <th>Phone Num</th>
+                            <th>Coach First Name</th>
+                            <th>Coach Last Name</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
 
+                    {{!-- Body section --}}
+                    <tbody>
 
-                        <th>Delete</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Roger</td>
-                        <td>Federer</td>
-                        <td>Switzerland</td>
-                        <td>541-358-8473</td>
-                        <td>Null</td>
-                        <td>Null</td>
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Novac</td>
-                        <td>Djokovic</td>
-                        <td>Serbia</td>
-                        <td>434-454-8574</td>
-                        <td>Null</td>
-                        <td>Null</td>
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Rafael</td>
-                        <td>Nadal</td>
-                        <td>Spain</td>
-                        <td>746-382-3457</td>
-                        <td>Null</td>
-                        <td>Null</td>
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-
+                        {{#each data}}
+                        <tr data-value={{this.first_name}}>
+                            <td>{{this.last_name}}</td>
+                            <td>{{this.nation}}</td>
+                            <td>{{this.phone_num}}</td>
+                            <td>{{this.coach.first_name}}</td>
+                            <td>{{this.coach.last_name}}</td>
+                            <td><button class= "delete_button" onclick="deleteOffering({{this.player_id}})"> - </button></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
                 </table>
+
+                <script src="./js/delete_player.js"></script>
             </div>
             
         </div>
