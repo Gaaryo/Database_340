@@ -270,7 +270,9 @@ app.post("/add-player-form", function (req, res) {
       data["input-first_name"]
     }', '${data["input-last_name"]}', '${data["input-nation"]}', '${
       data["input-phone_number"]
-    }')`;
+    }', (SELECT coach_id FROM Coaches WHERE Coaches.first_name = '${
+      data["input-coaches_first_name"]
+    }' AND  Coaches.last_name = '${data["input-coach_last_name"]}');`;
   db.pool.query(query1, function (error, rows, fields) {
     // Check to see if there was an error
     if (error) {
