@@ -275,20 +275,21 @@ app.post("/add-coach-form", function (req, res) {
 app.post("/add-player-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   let data = req.body;
+  console.log(data);
 
-  phone_num = req.body.phone_num;
+  phone_num = data["input-phone_num"];
   if ((phone_num == undefined) || (phone_num === "")) {
-    phone_num = "NULL";
+    phone_num = 'NULL';
   }
 
-  coach_fname = req.body.coach_first_name;
+  coach_fname = data.coach_first_name;
   if ((coach_fname == undefined) || (coach_fname === "")) {
-    coach_fname = "NULL";
+    coach_fname = 'NULL';
   }
 
-  coach_lname = req.body.coach_last_name;
+  coach_lname = data.coach_last_name;
   if ((coach_lname == undefined) || (coach_lname === "")) {
-    coach_lname = "NULL";
+    coach_lname = 'NULL';
   }
 
   // Create the query and run it on the database
