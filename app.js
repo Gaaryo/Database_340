@@ -279,17 +279,17 @@ app.post("/add-player-form", function (req, res) {
 
   phone_num = data["input-phone_num"];
   if ((phone_num == undefined) || (phone_num === "")) {
-    phone_num = 'NULL';
+    phone_num = "NULL";
   }
 
   coach_fname = data.coach_first_name;
   if ((coach_fname == undefined) || (coach_fname === "")) {
-    coach_fname = 'NULL';
+    coach_fname = "NULL";
   }
 
   coach_lname = data.coach_last_name;
   if ((coach_lname == undefined) || (coach_lname === "")) {
-    coach_lname = 'NULL';
+    coach_lname = "NULL";
   }
 
   // Create the query and run it on the database
@@ -320,6 +320,30 @@ app.post("/add-offering-form", function (req, res) {
 
   // Create the query and run it on the database
   query1 = `INSERT INTO Offerings (stuff) VALUES ('${data["input-stuff"]}');`;
+  db.pool.query(query1, function (error, rows, fields) {
+    console.log(error);
+    // Check to see if there was an error
+    if (error) {
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+    // presents it on the screen
+    else {
+      res.redirect("/offeringsEdit");
+    }
+  });
+});
+
+app.post("/edit-offering-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  let data = req.body;
+  console.log(data);
+
+  // Create the query and run it on the database
+  query1 = `UPDATE Offerings SET stuff = '${
+    data["edit-stuff"]
+  }' WHERE offering_id = '${data["edit-id"]}';`;
   db.pool.query(query1, function (error, rows, fields) {
     console.log(error);
     // Check to see if there was an error

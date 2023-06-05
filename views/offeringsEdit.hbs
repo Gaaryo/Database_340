@@ -25,21 +25,20 @@
             </div>
 
             <div class="edit">
-                <form>
+                <form id="edit-offering-form" method="POST" action="/edit-offering-form">
                     <h3>Edit Existing Data</h3>
                     <div class="u_input">
-                        <label>ID(data you edit)</label>
-                        <input>
+                        <label for="edit-id">ID(data you edit)</label>
+                        <input name="edit-id" id="edit-id">
                         <p>*require</p>
                     </div>
                     <div class="u_input">
-                        <label>Offering</label>
-                        <input>
+                        <label for="edit-stuff">Offering</label>
+                        <input name="edit-stuff" id="edit-stuff">
                         <p>*require</p>
                     </div>
                     
-                    
-                    <button>Edit Data</button>
+                    <input type="submit">
                 </form>
             </div>
             
