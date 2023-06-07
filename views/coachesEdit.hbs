@@ -16,18 +16,63 @@
                     <h3>Create New Data</h3>
                     <div class="u_input">
                         <label for="input-first_name">First Name</label>
-                        <input  name="input-first_name" id="input-first_name">
-                        <p>*require</p>
+                        <input  name="input-first_name" id="input-first_name" required>
+                        <p>*required</p>
                     </div>
                     <div class="u_input">
                         <label for="input-last_name">Last Name </label>
-                        <input type="text" name="input-last_name" id="input-last_name">
-                        <p>*require</p>
+                        <input type="text" name="input-last_name" id="input-last_name" required>
+                        <p>*required</p>
                     </div>
                     
                     <input type="submit">
                 </form>
-            </div>       
+
+                {{!-- <script src="./js/add_coach.js"></script> --}}
+            </div>  
+
+
+            <div class="edit">
+
+                <h3>Edit New Data</h3>
+                <form id="update-coach-form-ajax">
+                    <div class="u_input">
+                        <label for="input-coach_id">Coach ID </label>
+                        <select name="input-coach_id" id="idSelect" required>
+                            <option value="selected">Select an ID</option>
+                            {{#each data}}
+                            <option>{{this.coach_id}}</option>
+                            {{/each}}
+                        </select>
+                        <p>*required</p>
+                    </div>
+                    <div class="u_input">
+                        <label for="input-first_name">First Name </label>
+                        <input name="input-first_name" id="input-first_name-update" required>
+                        <p>*required</p>
+                    </div>
+                    <div class="u_input">
+                        <label for="input-last_name">Last Name </label>
+                        <input name="input-last_name" id="input-last_name-update" required>
+                        <p>*required</p>
+                    </div>
+
+                    
+
+                    
+                    
+                    <input type="submit">
+
+                </form>
+
+                <script src="./js/update_coach.js"></script>
+
+                
+
+
+
+
+            </div>     
             
             <div>
                 <table id="coaches-table">

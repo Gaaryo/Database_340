@@ -17,35 +17,50 @@
                     <div class="u_input">
                         
                         <label for="input-first_name">Date </label>
-                        <input type="date" name="input-date" id="input-date">
-                        <p>*require</p>
+                        <input type="date" name="input-date" id="input-date" required>
+                        <p>*required</p>
                     </div>
                     
                     
                     <div class="u_input">
                         <label for="input-player1">Player1 </label>
-                        <input type="number" name="input-player1" id="input-player1">
-                        <p>*require</p>
+                        <select name="input-player1" id="player1Select" required>
+                            <option value="test">Select a Player</option>
+                            {{#each players}}
+                            <option value="{{this.player_id}}">{{this.first_name}} {{this.last_name}}</option>
+                            {{/each}}
+                        </select>
+                        <p>*required</p>
                     </div>
                     <div class="u_input">
                         <label for="input-player2">Player2 </label>
-                        <input type="number" name="input-player2" id="input-player2">
-                        <p>*require</p>
+                        <select name="input-player2" id="player2Select" required>
+                            <option value="test">Select a Player</option>
+                            {{#each players}}
+                            <option value="{{this.player_id}}">{{this.first_name}} {{this.last_name}}</option>
+                            {{/each}}
+                        </select>
+                        <p>*required</p>
                     </div>
                     <div class="u_input">
                         <label for="input-winner"> Winner </label>
-                        <input type="number" name="input-winner" id="input-winner">
-                        <p>*require</p>
+                        <select name="input-winner" id="winnerSelect" required>
+                            <option value="test">Select the Winner</option>
+                            
+                            <option value="1">player 1</option>
+                            <option value="2">player 2</option>
+                        </select>
+                        <p>*required</p>
                     </div>
                     <div class="u_input">
                         <label for="input-score">Score </label>
-                        <input type="text" name="input-score" id="input-score">
-                        <p>*require</p>
+                        <input type="text" name="input-score" id="input-score" required>
+                        <p>*required</p>
                     </div>
                     <div class="u_input">
                         <label for="input-year"> Year </label>
-                        <input type="YEAR" name="input-year" id="input-year">
-                        <p>*require</p>
+                        <input type="YEAR" name="input-year" id="input-year" required>
+                        <p>*required</p>
                     </div>
                     
                     <input type="submit">
@@ -54,76 +69,32 @@
             </div>
 
             <div class="edit">
-                <form>
-                    <h3>Edit Existing Data</h3>
-
-                    <div class="u_input">
-                        <label>ID(data you edit)</label>
-                        <input>
-                        <p>*require</p>
-                    </div>
-
-                    <div class="u_input">
-                        <label>Date</label>
-                        <input>
-                        <p>*require</p>
-                    </div>
-                    
-                    
-                    <div class="u_input">
-                        <label>Player1</label>
-                        <input>
-                        <p>*require</p>
-                    </div>
-                    <div class="u_input">
-                        <label>Player2</label>
-                        <input>
-                        <p>*require</p>
-                    </div>
-                    <div class="u_input">
-                        <label>Winner</label>
-                        <input>
-                        <p>*require</p>
-                    </div>
-                    <div class="u_input">
-                        <label>Score</label>
-                        <input>
-                        <p>*require</p>
-                    </div>
-                    <div class="u_input">
-                        <label>Year</label>
-                        <input>
-                        <p>*require</p>
-                    </div>
-                    
-                    <button>Edit Data</button>
-                </form>
-
-                
-
 
                 <form id="update-match-form-ajax">
+                    <h3>Edit Existing Score</h3>
+                    <div class="u_input">
+                        <label>Match ID </label>
+                        <select name="input-match_id" id="idSelect" required>
+                            <option value="test">Select an ID</option>
+                            {{#each data}}
+                            <option>{{this.match_id}}</option>
+                            {{/each}}
+                        </select>
+                        <p>*required</p>
+                    </div>
+                    
+                    <div class="u_input">
+                        <label>Score</label>
+                            <input name="input-score" id="input-score-update" required>
+                        <p>*required</p>
+                    </div>
+                    
 
-                    <label for="input-id">ID </label>
-                    <select name="input-id" id="mySelect">
-                        <option value="test">Select a ID</option>
-                        {{#each data}}
-                        <option value="{{this.id}}">{{this.id}}</option>
-                        {{/each}}
-                    </select>
-
-                    <label for="input-date">Date </label>
-                    <select name="input-homeworld" id="input-homeworld-update">
-                        <option>Select a Planet</option>
-                        {{#each planets}}
-                        <option value="{{this.id}}">{{this.name}}</option>
-                        {{/each}}
-                    </select>
                     <input type="submit">
 
                 </form>
 
-            <script src="./js/update_person.js"></script>
+                <script src="./js/update_match.js"></script>
 
 
 
