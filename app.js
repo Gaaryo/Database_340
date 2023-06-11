@@ -114,7 +114,7 @@ app.get("/tournamentsView", function (_req, res) {
 
 app.get("/playersView", function (_req, res) {
   query = "SELECT * FROM Players JOIN Coaches ON Coaches.coach_id;";
-  db.pool.query(query1, function (_error, rows, _fields) {
+  db.pool.query(query, function (_error, rows, _fields) {
     res.render("playersView", { data: rows });
   });
 });
