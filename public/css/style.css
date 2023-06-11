@@ -4,9 +4,7 @@
     font-family: monospace;
 }
 
-body {
-   /* background-color: black;*/
-}
+
 
 h1{
     background-color: black;
@@ -182,3 +180,9 @@ button.delete_button{
 }
 /*Table End*/
 /*Contents End*/
+
+/*Overview*/
+p.overview{
+    font-size: 25px;
+}
+
