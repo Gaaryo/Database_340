@@ -49,7 +49,8 @@ app.get("/coachesEdit", function (req, res) {
 });
 
 app.get("/matchesEdit", function (req, res) {
-  let query1 = "Select match_id, DATE_FORMAT(date, '%Y %m %d') as date, player1, player2, winner, score, year FROM Matches;"; // Define our query
+  let query1 =
+    "Select match_id, DATE_FORMAT(date, '%Y %m %d') as date, player1, player2, winner, score, year FROM Matches;"; // Define our query
 
   //db.pool.query(query1, function(error, rows, fields){    // Execute the query
   //    res.render('matchesEdit', {data: rows});
@@ -107,12 +108,15 @@ app.get("/offeringsEdit", function (req, res) {
 
 //View pages
 
-app.get("/tournamentsView", function (req, res) {
+app.get("/tournamentsView", function (_req, res) {
   res.render("tournamentsView");
 });
 
-app.get("/playersView", function (req, res) {
-  res.render("playersView");
+app.get("/playersView", function (_req, res) {
+  query = "SELECT * FROM Players JOIN Coaches ON Coaches.coach_id;";
+  db.pool.query(query1, function (_error, rows, _fields) {
+    res.render("playersView", { data: rows });
+  });
 });
 
 app.get("/coachesView", function (req, res) {
@@ -256,24 +260,25 @@ app.post("/add-coach-form", function (req, res) {
   // Create the query and run it on the database
   query1 = `INSERT INTO Coaches (first_name, last_name) VALUES (?, ?)`;
 
-  db.pool.query(query1,[data["input-first_name"],data["input-last_name"]],function (error, rows, fields) {
-    // Check to see if there was an error
-    if (error) {
-      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-      console.log(error);
-      res.sendStatus(400);
-    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-    // presents it on the screen
-    else {
-      res.redirect("/coachesEdit");
-    }
-  });
+  db.pool.query(
+    query1,
+    [data["input-first_name"], data["input-last_name"]],
+    function (error, rows, fields) {
+      // Check to see if there was an error
+      if (error) {
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+      } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+      // presents it on the screen
+      else {
+        res.redirect("/coachesEdit");
+      }
+    },
+  );
 });
 
 //coach
-
-
-
 
 app.post("/add-player-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
@@ -366,22 +371,25 @@ app.post("/add-match-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   let data = req.body;
   console.log(data);
-  if(data["input-winner"] == "1")
-  {
+  if (data["input-winner"] == "1") {
     winner = data["input-player1"];
-  }
-  else{
+  } else {
     winner = data["input-player2"];
   }
 
-  query1 =
-    `INSERT INTO Matches (date, player1, player2, winner, score, year) 
+  query1 = `INSERT INTO Matches (date, player1, player2, winner, score, year) 
     VALUES (?, ?, ?, ?, ?, ? )`;
 
-    //VALUES ('${  data["input-date"], ${data["input-player1"]}, ${data["input-player2"]}, ${winner}, '${data["input-score"]}', '${data["input-year"]}' )`;
-    
-    query2 = 
-  db.pool.query(query1, [data["input-date"], data["input-player1"], data["input-player2"], winner, data["input-score"], data["input-year"]], function (error, rows, fields) {
+  //VALUES ('${  data["input-date"], ${data["input-player1"]}, ${data["input-player2"]}, ${winner}, '${data["input-score"]}', '${data["input-year"]}' )`;
+
+  query2 = db.pool.query(query1, [
+    data["input-date"],
+    data["input-player1"],
+    data["input-player2"],
+    winner,
+    data["input-score"],
+    data["input-year"],
+  ], function (error, rows, fields) {
     if (error) {
       console.log(error);
       res.sendStatus(400);
@@ -392,7 +400,7 @@ app.post("/add-match-form", function (req, res) {
 });
 
 //--------------------------- UPDATE PUT --------------------------
-app.put('/put-coach-ajax', function(req,res,next){                                   
+app.put("/put-coach-ajax", function (req, res, next) {
   let data = req.body;
   console.log(data);
 
@@ -400,32 +408,34 @@ app.put('/put-coach-ajax', function(req,res,next){
   let lastName = data.last_name;
   let coach_id = parseInt(data.coach_id);
 
-  queryUpdateFirstLastName = `UPDATE Coaches SET first_name = ?, last_name = ? WHERE Coaches.coach_id = ?`;
+  queryUpdateFirstLastName =
+    `UPDATE Coaches SET first_name = ?, last_name = ? WHERE Coaches.coach_id = ?`;
 
   //selectWorld = `SELECT * FROM bsg_planets WHERE id = ?`
 
-        // Run the 1st query
-        db.pool.query(queryUpdateFirstLastName, [firstName, lastName, coach_id], function(error, rows, fields){
-            if (error) {
+  // Run the 1st query
+  db.pool.query(
+    queryUpdateFirstLastName,
+    [firstName, lastName, coach_id],
+    function (error, rows, fields) {
+      if (error) {
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+      } // If there was no error, we run our second query and return that data so we can use it to update the people's
+      // table on the front-end
+      else {
+        let data = {
+          first_name: firstName,
+          last_name: lastName,
+        };
+        res.send(JSON.stringify(data));
+      }
+    },
+  );
+});
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error);
-            res.sendStatus(400);
-            }
-
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
-            else
-            {  
-              let data = {
-                first_name: firstName,
-                last_name: lastName
-            }
-              res.send(JSON.stringify(data));
-            }
-})});
-
-app.put('/put-match-ajax', function(req,res,next){                                   
+app.put("/put-match-ajax", function (req, res, next) {
   let data = req.body;
   console.log("Hello");
   console.log(data);
@@ -437,25 +447,26 @@ app.put('/put-match-ajax', function(req,res,next){
 
   //selectWorld = `SELECT * FROM bsg_planets WHERE id = ?`
 
-        // Run the 1st query
-        db.pool.query(queryUpdateScore, [score, match_id], function(error, rows, fields){
-            if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error);
-            res.sendStatus(400);
-            }
-
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
-            else
-            {  
-              let data = {
-                score: score
-            }
-              res.send(JSON.stringify(data));
-            }
-})});
+  // Run the 1st query
+  db.pool.query(
+    queryUpdateScore,
+    [score, match_id],
+    function (error, rows, fields) {
+      if (error) {
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+      } // If there was no error, we run our second query and return that data so we can use it to update the people's
+      // table on the front-end
+      else {
+        let data = {
+          score: score,
+        };
+        res.send(JSON.stringify(data));
+      }
+    },
+  );
+});
 
 /*
     LISTENER
