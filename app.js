@@ -4,18 +4,18 @@
     SETUP
 */
 
-var express = require("express"); // We are using the express library for the web server
-var app = express(); // We need to instantiate an express object to interact with the server in our code
+const express = require("express"); // We are using the express library for the web server
+const app = express(); // We need to instantiate an express object to interact with the server in our code
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 PORT = 9131; // Set a port number at the top so it's easy to change in the future
-var db = require("./database/db-connector");
+const db = require("./database/db-connector");
 
 const { engine } = require("express-handlebars");
-var exphbs = require("express-handlebars");
+const _exphbs = require("express-handlebars");
 app.engine(".hbs", engine({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
 /*
@@ -24,15 +24,15 @@ app.set("view engine", ".hbs");
 
 // app.js
 
-app.get("/", function (req, res) {
+app.get("/", function (_req, res) {
   res.render("index"); // an object where 'data' is equal to the 'rows' we
 });
 
-app.get("/tournamentsEdit", function (req, res) {
+app.get("/tournamentsEdit", function (_req, res) {
   res.render("tournamentsEdit");
 });
 
-app.get("/playersEdit", function (req, res) {
+app.get("/playersEdit", function (_req, res) {
   //query1 = "SELECT * FROM Players LEFT JOIN Coaches ON Coaches.coach_id = Players.coach_id;";
   query1 = "SELECT *,\
            Players.first_name AS player_first_name,\
@@ -41,22 +41,21 @@ app.get("/playersEdit", function (req, res) {
            Coaches.last_name AS coach_last_name\
            FROM Players LEFT JOIN Coaches ON Coaches.coach_id = Players.coach_id;";
 
-
-  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+  db.pool.query(query1, function (_error, rows, _fields) { // Execute the query
     res.render("playersEdit", { data: rows }); // Render the index.hbs file, and also send the renderer
   });
 });
 
-app.get("/coachesEdit", function (req, res) {
-  let query1 = "SELECT * FROM Coaches;"; // Define our query
+app.get("/coachesEdit", function (_req, res) {
+  const query1 = "SELECT * FROM Coaches;"; // Define our query
 
-  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+  db.pool.query(query1, function (_error, rows, _fields) { // Execute the query
     res.render("coachesEdit", { data: rows }); // Render the index.hbs file, and also send the renderer
   });
 });
 
-app.get("/matchesEdit", function (req, res) {
-  let query1 =
+app.get("/matchesEdit", function (_req, res) {
+  const query1 =
     "Select match_id, DATE_FORMAT(date, '%Y %m %d') as date, player1, player2, winner, score, year FROM Matches;"; // Define our query
 
   //db.pool.query(query1, function(error, rows, fields){    // Execute the query
@@ -64,21 +63,21 @@ app.get("/matchesEdit", function (req, res) {
 
   //})
 
-  let query2 = "SELECT * FROM Players;";
+  const query2 = "SELECT * FROM Players;";
   // Run the 1st query
-  db.pool.query(query1, function (error, rows, fields) {
+  db.pool.query(query1, function (_error, rows, _fields) {
     // Save the matches
     let matches = rows;
     // Run the second query
-    db.pool.query(query2, (error, rows, fields) => {
+    db.pool.query(query2, (_error, rows, _fields) => {
       // Save the players
-      let players = rows;
+      const players = rows;
       // Construct an object for reference in the table
       // Array.map is awesome for doing something with each
       // element of an array.
-      let playermap = {};
+      const playermap = {};
       players.map((player) => {
-        let id = parseInt(player.player_id, 10);
+        const id = parseInt(player.player_id, 10);
 
         playermap[id] = player["first_name"] + " " + player["last_name"];
       });
@@ -101,14 +100,14 @@ app.get("/matchesEdit", function (req, res) {
   });
 });
 
-app.get("/sponsorsEdit", function (req, res) {
+app.get("/sponsorsEdit", function (_req, res) {
   res.render("sponsorsEdit");
 });
 
-app.get("/offeringsEdit", function (req, res) {
-  let query1 = "SELECT * FROM Offerings;"; // Define our query
+app.get("/offeringsEdit", function (_req, res) {
+  const query1 = "SELECT * FROM Offerings;"; // Define our query
 
-  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+  db.pool.query(query1, function (_error, rows, _fields) { // Execute the query
     res.render("offeringsEdit", { data: rows });
   });
 });
@@ -116,52 +115,57 @@ app.get("/offeringsEdit", function (req, res) {
 //View pages
 
 app.get("/tournamentsView", function (_req, res) {
-  res.render("tournamentsView");
+  const query = "\
+    SELECT * FROM Tournaments\
+    LEFT JOIN Sponsors ON Sponsors.sponsor_id = Tournaments.sponsor_id;";
+
+  db.pool.query(query, function (_error, rows, _fields) {
+    console.log(query);
+    res.render("tournamentsView", { data: rows });
+  });
 });
 
 app.get("/playersView", function (_req, res) {
-  query = "SELECT *,\
+  const query = "SELECT *,\
            Players.first_name AS player_first_name,\
            Players.last_name AS player_last_name,\
            Coaches.first_name AS coach_first_name,\
            Coaches.last_name AS coach_last_name\
            FROM Players LEFT JOIN Coaches ON Coaches.coach_id = Players.coach_id;";
 
-  db.pool.query(query, function (error, rows, _fields) {
-      console.log(rows);
-      console.log(error);
+  db.pool.query(query, function (_error, rows, _fields) {
     res.render("playersView", { data: rows });
   });
 });
 
-app.get("/coachesView", function (req, res) {
-  let query1 = "SELECT * FROM Coaches;"; // Define our query
+app.get("/coachesView", function (_req, res) {
+  const query1 = "SELECT * FROM Coaches;"; // Define our query
 
-  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+  db.pool.query(query1, function (_error, rows, _fields) { // Execute the query
     res.render("coachesView", { data: rows }); // Render the index.hbs file, and also send the renderer
   });
 });
 
-app.get("/matchesView", function (req, res) {
-  let query1 = "SELECT * FROM Matches;"; // Define our query
+app.get("/matchesView", function (_req, res) {
+  const query1 = "SELECT * FROM Matches;"; // Define our query
 
-  let query2 = "SELECT * FROM Players;";
+  const query2 = "SELECT * FROM Players;";
   // Run the 1st query
-  db.pool.query(query1, function (error, rows, fields) {
+  db.pool.query(query1, function (_error, rows, _fields) {
     // Save the matches
     let matches = rows;
 
     // Run the second query
-    db.pool.query(query2, (error, rows, fields) => {
+    db.pool.query(query2, (_error, rows, _fields) => {
       // Save the players
-      let players = rows;
+      const players = rows;
 
       // Construct an object for reference in the table
       // Array.map is awesome for doing something with each
       // element of an array.
-      let playermap = {};
+      const playermap = {};
       players.map((player) => {
-        let id = parseInt(player.player_id, 10);
+        const id = parseInt(player.player_id, 10);
 
         playermap[id] = player["first_name"] + " " + player["last_name"];
       });
@@ -184,64 +188,34 @@ app.get("/matchesView", function (req, res) {
   });
 });
 
-app.get("/sponsorsView", function (req, res) {
+app.get("/sponsorsView", function (_req, res) {
   res.render("sponsorsView");
 });
 
-app.get("/offeringsView", function (req, res) {
+app.get("/offeringsView", function (_req, res) {
   res.render("offeringsView");
 });
 
 //Test file
 
-app.get("/test", function (req, res) {
-  let query1 = "SELECT * FROM Coaches;"; // Define our query
+app.get("/test", function (_req, res) {
+  const query1 = "SELECT * FROM Coaches;"; // Define our query
 
-  db.pool.query(query1, function (error, rows, fields) { // Execute the query
+  db.pool.query(query1, function (_error, rows, _fields) { // Execute the query
     //console.log(rows)
     res.render("coaches", { data: rows }); // Render the index.hbs file, and also send the renderer
   }); // an object where 'data' is equal to the 'rows' we
 });
 
-app.delete("/delete-coach-ajax/", function (req, res, next) {
-  let data = req.body;
-  let personID = parseInt(data.id);
-  let deleteBsg_Coaches = `DELETE FROM Coaches WHERE coach_id = ?`;
-
-  db.pool.query(deleteBsg_Coaches, [personID], function (error, rows, fields) {
-    if (error) {
-      console.log(error);
-      res.sendStatus(400);
-    } else {
-      res.sendStatus(204);
-    }
-  });
-});
-
-app.delete("/delete-player-ajax/", function (req, res, next) {
-  let data = req.body;
-  let playerID = parseInt(data.id);
-  let delete_Players = `DELETE FROM Players WHERE player_id = ?`;
-
-  db.pool.query(delete_Players, [playerID], function (error, rows, fields) {
-    if (error) {
-      console.log(error);
-      res.sendStatus(400);
-    } else {
-      res.sendStatus(204);
-    }
-  });
-});
-
-app.delete("/delete-offering-ajax/", function (req, res, next) {
-  let data = req.body;
-  let offeringID = parseInt(data.id);
-  let deleteBsg_Offerings = `DELETE FROM Offerings WHERE offering_id = ?`;
+app.delete("/delete-coach-ajax/", function (req, res, _next) {
+  const data = req.body;
+  const personID = parseInt(data.id);
+  const deleteBsg_Coaches = `DELETE FROM Coaches WHERE coach_id = ?`;
 
   db.pool.query(
-    deleteBsg_Offerings,
-    [offeringID],
-    function (error, rows, fields) {
+    deleteBsg_Coaches,
+    [personID],
+    function (error, _rows, _fields) {
       if (error) {
         console.log(error);
         res.sendStatus(400);
@@ -252,12 +226,46 @@ app.delete("/delete-offering-ajax/", function (req, res, next) {
   );
 });
 
-app.delete("/delete-match-ajax/", function (req, res, next) {
-  let data = req.body;
-  let matchID = parseInt(data.id);
-  let deleteBsg_Matches = `DELETE FROM Matches WHERE match_id = ?`;
+app.delete("/delete-player-ajax/", function (req, res, _next) {
+  const data = req.body;
+  const playerID = parseInt(data.id);
+  const delete_Players = `DELETE FROM Players WHERE player_id = ?`;
 
-  db.pool.query(deleteBsg_Matches, [matchID], function (error, rows, fields) {
+  db.pool.query(delete_Players, [playerID], function (error, _rows, _fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      res.sendStatus(204);
+    }
+  });
+});
+
+app.delete("/delete-offering-ajax/", function (req, res, _next) {
+  const data = req.body;
+  const offeringID = parseInt(data.id);
+  const deleteBsg_Offerings = `DELETE FROM Offerings WHERE offering_id = ?`;
+
+  db.pool.query(
+    deleteBsg_Offerings,
+    [offeringID],
+    function (error, _rows, _fields) {
+      if (error) {
+        console.log(error);
+        res.sendStatus(400);
+      } else {
+        res.sendStatus(204);
+      }
+    },
+  );
+});
+
+app.delete("/delete-match-ajax/", function (req, res, _next) {
+  const data = req.body;
+  const matchID = parseInt(data.id);
+  const deleteBsg_Matches = `DELETE FROM Matches WHERE match_id = ?`;
+
+  db.pool.query(deleteBsg_Matches, [matchID], function (error, _rows, _fields) {
     if (error) {
       console.log(error);
       res.sendStatus(400);
@@ -270,7 +278,7 @@ app.delete("/delete-match-ajax/", function (req, res, next) {
 //post coach
 app.post("/add-coach-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
-  let data = req.body;
+  const data = req.body;
 
   // Create the query and run it on the database
   query1 = `INSERT INTO Coaches (first_name, last_name) VALUES (?, ?)`;
@@ -278,7 +286,7 @@ app.post("/add-coach-form", function (req, res) {
   db.pool.query(
     query1,
     [data["input-first_name"], data["input-last_name"]],
-    function (error, rows, fields) {
+    function (error, _rows, _fields) {
       // Check to see if there was an error
       if (error) {
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -297,7 +305,7 @@ app.post("/add-coach-form", function (req, res) {
 
 app.post("/add-player-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
-  let data = req.body;
+  const data = req.body;
   console.log(data);
 
   phone_num = data["input-phone_num"];
@@ -322,7 +330,7 @@ app.post("/add-player-form", function (req, res) {
     }', '${data["input-last_name"]}', '${
       data["input-nation"]
     }', '${phone_num}', (SELECT coach_id FROM Coaches WHERE Coaches.first_name = '${coach_fname}' AND  Coaches.last_name = '${coach_lname}'));`;
-  db.pool.query(query1, function (error, rows, fields) {
+  db.pool.query(query1, function (error, _rows, _fields) {
     // Check to see if there was an error
     if (error) {
       // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -338,12 +346,12 @@ app.post("/add-player-form", function (req, res) {
 
 app.post("/add-offering-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
-  let data = req.body;
+  const data = req.body;
   console.log(data);
 
   // Create the query and run it on the database
   query1 = `INSERT INTO Offerings (stuff) VALUES ('${data["input-stuff"]}');`;
-  db.pool.query(query1, function (error, rows, fields) {
+  db.pool.query(query1, function (error, _rows, _fields) {
     console.log(error);
     // Check to see if there was an error
     if (error) {
@@ -360,14 +368,14 @@ app.post("/add-offering-form", function (req, res) {
 
 app.post("/edit-offering-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
-  let data = req.body;
+  const data = req.body;
   console.log(data);
 
   // Create the query and run it on the database
   query1 = `UPDATE Offerings SET stuff = '${
     data["edit-stuff"]
   }' WHERE offering_id = '${data["edit-id"]}';`;
-  db.pool.query(query1, function (error, rows, fields) {
+  db.pool.query(query1, function (error, _rows, _fields) {
     console.log(error);
     // Check to see if there was an error
     if (error) {
@@ -384,7 +392,7 @@ app.post("/edit-offering-form", function (req, res) {
 
 app.post("/add-match-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
-  let data = req.body;
+  const data = req.body;
   console.log(data);
   if (data["input-winner"] == "1") {
     winner = data["input-player1"];
@@ -404,7 +412,7 @@ app.post("/add-match-form", function (req, res) {
     winner,
     data["input-score"],
     data["input-year"],
-  ], function (error, rows, fields) {
+  ], function (error, _rows, _fields) {
     if (error) {
       console.log(error);
       res.sendStatus(400);
@@ -415,13 +423,13 @@ app.post("/add-match-form", function (req, res) {
 });
 
 //--------------------------- UPDATE PUT --------------------------
-app.put("/put-coach-ajax", function (req, res, next) {
-  let data = req.body;
+app.put("/put-coach-ajax", function (req, res, _next) {
+  const data = req.body;
   console.log(data);
 
-  let firstName = data.first_name;
-  let lastName = data.last_name;
-  let coach_id = parseInt(data.coach_id);
+  const firstName = data.first_name;
+  const lastName = data.last_name;
+  const coach_id = parseInt(data.coach_id);
 
   queryUpdateFirstLastName =
     `UPDATE Coaches SET first_name = ?, last_name = ? WHERE Coaches.coach_id = ?`;
@@ -432,7 +440,7 @@ app.put("/put-coach-ajax", function (req, res, next) {
   db.pool.query(
     queryUpdateFirstLastName,
     [firstName, lastName, coach_id],
-    function (error, rows, fields) {
+    function (error, _rows, _fields) {
       if (error) {
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
         console.log(error);
@@ -440,7 +448,7 @@ app.put("/put-coach-ajax", function (req, res, next) {
       } // If there was no error, we run our second query and return that data so we can use it to update the people's
       // table on the front-end
       else {
-        let data = {
+        const data = {
           first_name: firstName,
           last_name: lastName,
         };
@@ -450,13 +458,13 @@ app.put("/put-coach-ajax", function (req, res, next) {
   );
 });
 
-app.put("/put-match-ajax", function (req, res, next) {
-  let data = req.body;
+app.put("/put-match-ajax", function (req, res, _next) {
+  const data = req.body;
   console.log("Hello");
   console.log(data);
 
-  let score = data.score;
-  let match_id = parseInt(data.match_id);
+  const score = data.score;
+  const match_id = parseInt(data.match_id);
 
   queryUpdateScore = `UPDATE Matches SET score = ? WHERE Matches.match_id = ?`;
 
@@ -466,7 +474,7 @@ app.put("/put-match-ajax", function (req, res, next) {
   db.pool.query(
     queryUpdateScore,
     [score, match_id],
-    function (error, rows, fields) {
+    function (error, _rows, _fields) {
       if (error) {
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
         console.log(error);
@@ -474,7 +482,7 @@ app.put("/put-match-ajax", function (req, res, next) {
       } // If there was no error, we run our second query and return that data so we can use it to update the people's
       // table on the front-end
       else {
-        let data = {
+        const data = {
           score: score,
         };
         res.send(JSON.stringify(data));
