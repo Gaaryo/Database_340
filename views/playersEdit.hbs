@@ -112,12 +112,12 @@
                         {{#each data}}
                         <tr data-value={{this.player_id}}>
                             <td>{{this.player_id}}</td>
-                            <td>{{this.first_name}}</td>
-                            <td>{{this.last_name}}</td>
+                            <td>{{this.player_first_name}}</td>
+                            <td>{{this.player_last_name}}</td>
                             <td>{{this.nation}}</td>
                             <td>{{this.phone_num}}</td>
-                            <td>{{this.coach.first_name}}</td>
-                            <td>{{this.coach.last_name}}</td>
+                            <td>{{this.coach_first_name}}</td>
+                            <td>{{this.coach_last_name}}</td>
                             <td><button class= "delete_button" onclick="deletePlayer({{this.player_id}})"> - </button></td>
                         </tr>
                         {{/each}}

@@ -33,7 +33,14 @@ app.get("/tournamentsEdit", function (req, res) {
 });
 
 app.get("/playersEdit", function (req, res) {
-  let query1 = "SELECT * FROM Players;"; // Define our query
+  //query1 = "SELECT * FROM Players LEFT JOIN Coaches ON Coaches.coach_id = Players.coach_id;";
+  query1 = "SELECT *,\
+           Players.first_name AS player_first_name,\
+           Players.last_name AS player_last_name,\
+           Coaches.first_name AS coach_first_name,\
+           Coaches.last_name AS coach_last_name\
+           FROM Players LEFT JOIN Coaches ON Coaches.coach_id = Players.coach_id;";
+
 
   db.pool.query(query1, function (error, rows, fields) { // Execute the query
     res.render("playersEdit", { data: rows }); // Render the index.hbs file, and also send the renderer
@@ -113,8 +120,16 @@ app.get("/tournamentsView", function (_req, res) {
 });
 
 app.get("/playersView", function (_req, res) {
-  query = "SELECT * FROM Players JOIN Coaches ON Coaches.coach_id;";
-  db.pool.query(query, function (_error, rows, _fields) {
+  query = "SELECT *,\
+           Players.first_name AS player_first_name,\
+           Players.last_name AS player_last_name,\
+           Coaches.first_name AS coach_first_name,\
+           Coaches.last_name AS coach_last_name\
+           FROM Players LEFT JOIN Coaches ON Coaches.coach_id = Players.coach_id;";
+
+  db.pool.query(query, function (error, rows, _fields) {
+      console.log(rows);
+      console.log(error);
     res.render("playersView", { data: rows });
   });
 });
