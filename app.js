@@ -457,7 +457,7 @@ app.post("/add-tournament-form", function (req, res) {
 app.post("/edit-tournament-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
-  //console.log(data);
+  console.log(data);
 
   // Create the query and run it on the database
   const query = `UPDATE Tournaments SET\
