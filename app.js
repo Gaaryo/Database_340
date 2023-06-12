@@ -459,16 +459,26 @@ app.post("/edit-tournament-form", function (req, res) {
   const data = req.body;
   console.log(data);
 
+  let sponsor_name = `'${data["edit-sponsor-name"]}'`;
+  if (sponsor_name === "''") {
+      sponsor_name = "NULL";
+  }
+
+  let venue = `'${data["edit-venue"]}'`;
+  if (venue === "''") {
+      venue = "NULL";
+  }
+
   // Create the query and run it on the database
   const query = `UPDATE Tournaments SET\
-  venue = CASE WHEN '${data["edit-venue"]}'\
-    IS NOT NULL THEN '${data["edit-venue"]}'\
-    ELSE venue,\
-  sponsor_id = CASE WHEN '${data["edit-sponsor-name"]}'\
+  venue = CASE WHEN ${venue}\
+    IS NOT NULL THEN ${venue}\
+    ELSE venue END,\
+  sponsor_id = CASE WHEN ${sponsor_name}\
     IS NOT NULL THEN\
-      (SELECT Sponsor.sponsor_id FROM Sponsors\
-      WHERE Sponsors.sponsor_name = '${data["edit-sponsor-name"]}')\
-    ELSE sponsor_id\
+      (SELECT Sponsors.sponsor_id FROM Sponsors\
+      WHERE Sponsors.sponsor_name = ${sponsor_name} LIMIT 1)\
+    ELSE sponsor_id END\
   WHERE year = '${data["edit-year"]}';`;
   db.pool.query(query, function (error, _rows, _fields) {
     console.log(error);
