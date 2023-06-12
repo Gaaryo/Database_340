@@ -552,9 +552,9 @@ app.post("/edit-sponsor-form", function (req, res) {
   const data = req.body;
   console.log(data);
 
-  let sponsor_name = `'${data["edit-name"]}'`;
-  if (sponsor_name === "''") {
-    sponsor_name = "NULL";
+  let sponsor_id = `'${data["edit-id"]}'`;
+  if (sponsor_id === "''") {
+    sponsor_id = "NULL";
   }
 
   let offering = `'${data["edit-offering"]}'`;
@@ -569,7 +569,8 @@ app.post("/edit-sponsor-form", function (req, res) {
       (SELECT Offerings.offering_id FROM Offerings\
       WHERE Offerings.stuff = ${offering} LIMIT 1)\
     ELSE offering_id END\
-  WHERE Sponsors.sponsor_name = '${data["edit-name"]}';`;
+  WHERE Sponsors.sponsor_id = ${sponsor_id};`;
+
   db.pool.query(query, function (error, _rows, _fields) {
     console.log(error);
     // Check to see if there was an error
