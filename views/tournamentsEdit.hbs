@@ -16,49 +16,51 @@
 
             <div class="create">
                 
-                <form>
+                <form id="add-tournament-form" method="POST" action="/add-tournament-form">
                     <h3>Create New Data</h3>
                     <div class="u_input">
-                        <label>Year</label>
-                        <input>
+                        <label for="input-year">Year</label>
+                        <input name="input-year" id="input-year">
                         <p>*required</p>
                     </div>
 
                     <div class="u_input">
-                        <label>Venue</label>
-                        <input>
+                        <label for="input-venue">Venue</label>
+                        <input name="input-venue" id="input-venue">
                         <p>*required</p>
                     </div>
                     <div class="u_input">
-                        <label>Sponsor Name</label>
-                        <input>
+                        <label for="input-sponsor-name">Sponsor Name</label>
+                        <input name="input-sponsor-name" id="input-sponsor-name">
                     </div>
                     
-                    <button>Create Data</button>
+                    <input type="submit"
+                    {{!-- <button>Create Data</button> --}}
                 </form>
             </div>
 
             <div class="edit">
                 
-                <form>
+                <form id="edit-offering-form" method="POST" action="/edit-tournament-form">
                     <h3>Edit Existing Data</h3>
                     <div class="u_input">
-                        <label>Year</label>
-                        <input>
+                        <label for="edit-year">Year</label>
+                        <input name="edit-year" id="edit-year">
                         <p>*required</p>
                     </div>
 
                     <div class="u_input">
-                        <label>Venue</label>
-                        <input>
+                        <label for="edit-venue">Venue</label>
+                        <input name="edit-venue" id="edit-venue">
                         <p>*required</p>
                     </div>
                     <div class="u_input">
-                        <label>Sponsor Name</label>
-                        <input>
+                        <label for="edit-sponsor-name">Sponsor Name</label>
+                        <input name="edit-sponsor-name" id="edit-sponsor-name">
                     </div>
                     
-                    <button>Edit Data</button>
+                    <input type="submit">
+                    {{!-- <button>Edit Data</button> --}}
                 </form>
             </div>
             
