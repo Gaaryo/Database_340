@@ -463,7 +463,7 @@ app.post("/edit-tournament-form", function (req, res) {
   const query = `UPDATE Tournaments SET\
   venue = CASE WHEN '${data["edit-venue"]}'\
     IS NOT NULL THEN '${data["edit-venue"]}'\
-    ELSE venue\
+    ELSE venue,\
   sponsor_id = CASE WHEN '${data["edit-sponsor-name"]}'\
     IS NOT NULL THEN\
       (SELECT Sponsor.sponsor_id FROM Sponsors\
