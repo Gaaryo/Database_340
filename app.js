@@ -120,7 +120,7 @@ app.get("/tournamentsView", function (_req, res) {
     LEFT JOIN Sponsors ON Sponsors.sponsor_id = Tournaments.sponsor_id;";
 
   db.pool.query(query, function (_error, rows, _fields) {
-    console.log(query);
+    console.log(rows);
     res.render("tournamentsView", { data: rows });
   });
 });

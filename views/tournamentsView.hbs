@@ -36,37 +36,22 @@
 
             <!--Table START-->
             <div>
-                <table>
+                <table id="tournaments-table">
                     <tr>
                         <th>Year</th>
                         <th>Venue</th>
                         <th>Sponsor Name</th>
                     </tr>
-                    <tr>
-                        <td>2018</td>
-                        <td>New York Tennis Garden</td>
-                        <td>Yonex</td>
-                    </tr>
-                    <tr>
-                        <td>2018</td>
-                        <td>New York Tennis Garden</td>
-                        <td>US Bank</td>
-                    </tr>
-                    <tr>
-                        <td>2019</td>
-                        <td>California City Park</td>
-                        <td>Null</td>
-                    </tr>
-                    <tr>
-                        <td>2021</td>
-                        <td>Portland Sports Arena</td>
-                        <td>Null</td>
-                    </tr>
-                    <tr>
-                        <td>2022</td>
-                        <td>Los Angeles Tennis Park</td>
-                        <td>Null</td>
-                    </tr>
+
+                    <tbody>
+                        {{#each data}}
+                        <tr data-value={{this.year}}>
+                            <td>{{this.year}}</td>
+                            <td>{{this.venue}}</td>
+                            <td>{{this.sponsor_name}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
                 </table>
             </div>
         </div>
