@@ -73,30 +73,16 @@
                         <th>Sponsor Name</th>
                         <th>Delete</th>
                     </tr>
-                    <tr>
-                        <td>2018</td>
-                        <td>New York Tennis Garden</td>
-                        <td>Null</td>
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>2019</td>
-                        <td>California City Park</td>
-                        <td>Null</td>
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>2021</td>
-                        <td>Portland Sports Arena</td>
-                        <td>Null</td>
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>2022</td>
-                        <td>Los Angeles Tennis Park</td>
-                        <td>Null</td>
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
+
+                    <tbody>
+                        {{#each data}}
+                        <tr data-value={{this.year}}>
+                            <td>{{this.year}}</td>
+                            <td>{{this.venue}}</td>
+                            <td>{{this.sponsor_name}}</td>
+                            <td><button class= "delete_button" onclick="deleteTournament({{this.year}})"> - </button></td>
+                        {{/each}}
+                    </tbody>
                 </table>
             </div>
             
