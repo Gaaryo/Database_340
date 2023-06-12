@@ -307,7 +307,8 @@ app.delete("/delete-tournament-ajax/", function (req, res, _next) {
 
 app.delete("/delete-sponsor-ajax/", function (req, res, _next) {
   const data = req.body;
-  const sponsorID = parseInt(data.sponsor_id);
+  console.log(data);
+  const sponsorID = parseInt(data.id);
   const deleteBsg_Sponsors = `DELETE FROM Sponsors WHERE sponsor_id = ?`;
 
   db.pool.query(

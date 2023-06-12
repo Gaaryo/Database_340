@@ -1,7 +1,7 @@
 function deleteSponsor(sponsorID) {
   // Put our data we want to send in a javascript object
   const data = {
-    year: sponsorID,
+    id: sponsorID,
   };
 
   // Setup our AJAX request
