@@ -114,7 +114,7 @@ app.get("/sponsorsEdit", function (_req, res) {
 
   db.pool.query(query, function (_error, rows, _fields) {
     console.log(rows);
-    res.render("sponsorsView", { data: rows });
+    res.render("sponsorsEdit", { data: rows });
   });
 });
 
