@@ -108,7 +108,14 @@ app.get("/matchesEdit", function (_req, res) {
 });
 
 app.get("/sponsorsEdit", function (_req, res) {
-  res.render("sponsorsEdit");
+  const query = "\
+    SELECT * FROM Sponsors\
+    LEFT JOIN Offerings ON Offerings.offering_id = Sponsors.offering_id;";
+
+  db.pool.query(query, function (_error, rows, _fields) {
+    console.log(rows);
+    res.render("sponsorsView", { data: rows });
+  });
 });
 
 app.get("/offeringsEdit", function (_req, res) {
