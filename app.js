@@ -298,6 +298,25 @@ app.delete("/delete-tournament-ajax/", function (req, res, _next) {
   );
 });
 
+app.delete("/delete-sponsor-ajax/", function (req, res, _next) {
+  const data = req.body;
+  const sponsorID = parseInt(data.sponsor_id);
+  const deleteBsg_Sponsors = `DELETE FROM Sponsors WHERE sponsor_id = ?`;
+
+  db.pool.query(
+    deleteBsg_Sponsors,
+    [sponsorID],
+    function (error, _rows, _fields) {
+      if (error) {
+        console.log(error);
+        res.sendStatus(400);
+      } else {
+        res.sendStatus(204);
+      }
+    },
+  );
+});
+
 app.delete("/delete-match-ajax/", function (req, res, _next) {
   const data = req.body;
   const matchID = parseInt(data.id);
@@ -454,6 +473,32 @@ app.post("/add-tournament-form", function (req, res) {
   });
 });
 
+app.post("/add-sponsor-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  const data = req.body;
+  //console.log(data);
+
+  // Create the query and run it on the database
+  const query = `INSERT INTO Sponsors (sponsor_name, offering_id)\
+    VALUES ('${data["input-name"]}',\
+    (SELECT Offerings.offering_id FROM Offerings\
+    WHERE Sponsors.sponsor_name = '${data["input-name"]}'));`;
+
+  db.pool.query(query, function (error, _rows, _fields) {
+    console.log(error);
+    // Check to see if there was an error
+    if (error) {
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+    // presents it on the screen
+    else {
+      res.redirect("/sponsorsEdit");
+    }
+  });
+});
+
 app.post("/edit-tournament-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
@@ -461,12 +506,12 @@ app.post("/edit-tournament-form", function (req, res) {
 
   let sponsor_name = `'${data["edit-sponsor-name"]}'`;
   if (sponsor_name === "''") {
-      sponsor_name = "NULL";
+    sponsor_name = "NULL";
   }
 
   let venue = `'${data["edit-venue"]}'`;
   if (venue === "''") {
-      venue = "NULL";
+    venue = "NULL";
   }
 
   // Create the query and run it on the database
@@ -491,6 +536,44 @@ app.post("/edit-tournament-form", function (req, res) {
     // presents it on the screen
     else {
       res.redirect("/tournamentsEdit");
+    }
+  });
+});
+
+app.post("/edit-sponsor-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  const data = req.body;
+  console.log(data);
+
+  let sponsor_name = `'${data["edit-name"]}'`;
+  if (sponsor_name === "''") {
+    sponsor_name = "NULL";
+  }
+
+  let offering = `'${data["edit-offering"]}'`;
+  if (offering === "''") {
+    offering = "NULL";
+  }
+
+  // Create the query and run it on the database
+  const query = `UPDATE Sponsors SET\
+  offering_id = CASE WHEN ${offering}\
+    IS NOT NULL THEN\
+      (SELECT Offerings.offering_id FROM Offerings\
+      WHERE Offerings.stuff = ${offering} LIMIT 1)\
+    ELSE offering_id END\
+  WHERE Sponsors.sponsor_name = '${data["edit-name"]}';`;
+  db.pool.query(query, function (error, _rows, _fields) {
+    console.log(error);
+    // Check to see if there was an error
+    if (error) {
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+    // presents it on the screen
+    else {
+      res.redirect("/sponsorsEdit");
     }
   });
 });
