@@ -61,9 +61,10 @@
                     </tr>
 
                     <tbody>
-                        {{#each}}
-                        <tr data-value={{this.year}}>
+                        {{#each data}}
+                        <tr data-value={{this.sponsor_id}}>
                             <td>{{this.sponsor_id}}</td>
+                            <td>{{this.sponsor_name}}</td>
                             <td>{{this.offering_name}}</td>
                             <td><button class= "delete_button" onclick="deleteSponsor({{this.sponsor_id}})"> - </button></td>
                         </tr>
