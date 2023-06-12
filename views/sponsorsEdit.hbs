@@ -12,96 +12,65 @@
                 Sponsors Edit
             </h2>
             <div class="create">
-                <form>
+                <form id="add-sponsor-form" meghod="POST" action="/add-tournament-form">
                     <h3>Create New Data</h3>
                     <div class="u_input">
-                        <label>Sponsor Name</label>
-                        <input>
+                        <label for="input-name">Sponsor Name</label>
+                        <input name="input-name" id="input-name">
                         <p>*required</p>
                     </div>
                     <div class="u_input">
-                        <label>Offerings ID</label>
-                        <input>
-                        <p>*required</p>
-                    </div>
-                    <div class="u_input">
-                        <label>Year</label>
-                        <input>
+                        <label for="input-offering">Offering</label>
+                        <input name="input-offering" id="input-offering">
                         <p>*required</p>
                     </div>
                     
-                    
-                    <button>Create Data</button>
+                    {{!-- <button>Create Data</button> --}}
+                    <input type="submit">
                 </form>
             </div>
 
             <div class="edit">
-                <form>
+                <form id="edit-sponsor-form" method="POST" action="/edit-sponsor-form">
                     <h3>Edit Existing Data</h3>
-
                     <div class="u_input">
-                        <label>ID(data you edit)</label>
-                        <input>
+                        <label for="edit-name">Sponsor Name</label>
+                        <input name="edit-name" id="edit-name">
                         <p>*required</p>
                     </div>
                     <div class="u_input">
-                        <label>Sponsor Name</label>
-                        <input>
-                        <p>*required</p>
-                    </div>
-                    <div class="u_input">
-                        <label>Offerings ID</label>
-                        <input>
-                        <p>*required</p>
-                    </div>
-                    <div class="u_input">
-                        <label>Year</label>
-                        <input>
+                        <label for="edit-offering" >Offering</label>
+                        <input name="edit-offering" id="edit-offering">
                         <p>*required</p>
                     </div>
                     
-                    
-                    <button>Edit Data</button>
+                    {{!-- <button>Edit Data</button> --}}
+                    <input type="submit">
                 </form>
             </div>
             
             
             <div>
-                <table>
+                <table id="sponsors-table">
                     <tr>
                         <th>ID</th>
                         <th>Sponsor Name</th>
-                        <th>Offerings</th>
-                        <th>Year</th>
+                        <th>Offering</th>
 
                         <th>Delete</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Yonex</td>
-                        <td>2</td>
-                        <td>2018</td>
 
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Asics</td>
-                        <td>3</td>
-                        <td>2019</td>
-
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>US bank</td>
-                        <td>1</td>
-                        <td>2021</td>
-
-                        <td><button class = "delete_button"> - </button></td>
-                    </tr>
-                    
+                    <tbody>
+                        {{#each}}
+                        <tr data-value={{this.year}}>
+                            <td>{{this.sponsor_id}}</td>
+                            <td>{{this.offering_name}}</td>
+                            <td><button class= "delete_button" onclick="deleteSponsor({{this.sponsor_id}})"> - </button></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
                 </table>
+                <script src="./js/delete_sponsor.js"></script>
             </div>
             
         </div>
