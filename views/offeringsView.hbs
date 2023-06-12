@@ -13,12 +13,23 @@
             
             
             <div>
-                <table>
+                <table id="offerings-table">
                     <tr>
                         <th>ID</th>
                         <th>Offering</th>
                         
                     </tr>
+
+                    <tbody>
+                        {{#each data}}
+                        <tr data-value={{this.offering_id}}></tr>
+                            <td>{{this.offering_id}}</td>
+                            <td>{{this.stuff}}</td>
+                        <\tr>
+
+                        {{/each}}
+                    <\tbody>
+
                     <tr>
                         <td>1</td>
                         <td>Money</td>

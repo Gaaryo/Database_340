@@ -189,11 +189,23 @@ app.get("/matchesView", function (_req, res) {
 });
 
 app.get("/sponsorsView", function (_req, res) {
-  res.render("sponsorsView");
+  const query = "SELECT * FROM Sponsors\
+    LEFT JOIN Offerings\
+    ON Sponsors.offering_id = Offerings.offering_id;"; // Define our query
+
+  db.pool.query(query, function (_error, rows, _fields) { // Execute the query
+    //console.log(rows)
+    res.render("sponsorsView", { data: rows }); // Render the index.hbs file, and also send the renderer
+  }); // an object where 'data' is equal to the 'rows' we
 });
 
 app.get("/offeringsView", function (_req, res) {
-  res.render("offeringsView");
+  const query = "SELECT * FROM Offerings;"; // Define our query
+
+  db.pool.query(query, function (_error, rows, _fields) { // Execute the query
+    //console.log(rows)
+    res.render("offeringsView", { data: rows }); // Render the index.hbs file, and also send the renderer
+  }); // an object where 'data' is equal to the 'rows' we
 });
 
 //Test file
@@ -217,7 +229,7 @@ app.delete("/delete-coach-ajax/", function (req, res, _next) {
     [personID],
     function (error, _rows, _fields) {
       if (error) {
-        console.log(error);
+        //console.log(error);
         res.sendStatus(400);
       } else {
         res.sendStatus(204);
@@ -306,7 +318,7 @@ app.post("/add-coach-form", function (req, res) {
 app.post("/add-player-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
-  console.log(data);
+  //console.log(data);
 
   phone_num = data["input-phone_num"];
   if ((phone_num == undefined) || (phone_num === "")) {
@@ -347,7 +359,7 @@ app.post("/add-player-form", function (req, res) {
 app.post("/add-offering-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
-  console.log(data);
+  //console.log(data);
 
   // Create the query and run it on the database
   query1 = `INSERT INTO Offerings (stuff) VALUES ('${data["input-stuff"]}');`;
@@ -369,7 +381,7 @@ app.post("/add-offering-form", function (req, res) {
 app.post("/edit-offering-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
-  console.log(data);
+  //console.log(data);
 
   // Create the query and run it on the database
   query1 = `UPDATE Offerings SET stuff = '${
@@ -393,7 +405,7 @@ app.post("/edit-offering-form", function (req, res) {
 app.post("/add-match-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
-  console.log(data);
+  //console.log(data);
   if (data["input-winner"] == "1") {
     winner = data["input-player1"];
   } else {
@@ -425,7 +437,7 @@ app.post("/add-match-form", function (req, res) {
 //--------------------------- UPDATE PUT --------------------------
 app.put("/put-coach-ajax", function (req, res, _next) {
   const data = req.body;
-  console.log(data);
+  //console.log(data);
 
   const firstName = data.first_name;
   const lastName = data.last_name;

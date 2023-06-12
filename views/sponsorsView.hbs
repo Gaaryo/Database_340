@@ -38,7 +38,7 @@
             
             <!--Table Start-->
             <div>
-                <table>
+                <table id="sponsors-table">
                     <tr>
                         <th>ID</th>
                         <th>Sponsor Name</th>
@@ -46,6 +46,19 @@
                         <th>Year</th>
 
                     </tr>
+
+                    <tbody>
+                        {{each data}}
+                        <tr data-value={{this.sponsor_id}}>
+                            <td>{{this.sponsor_id}}<\td>
+                            <td>{{this.name}}<\td>
+                            <td>{{this.offering_id}}<\td>
+                            <td>{{this.stuff}}<\td>
+                            <td>{{this.year}}<\td>
+
+                        {{\each}}
+                    <\tbody>
+
                     <tr>
                         <td>1</td>
                         <td>Yonex</td>
