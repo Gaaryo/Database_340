@@ -43,44 +43,19 @@
                         <th>ID</th>
                         <th>Sponsor Name</th>
                         <th>Offerings</th>
-                        <th>Year</th>
 
                     </tr>
 
                     <tbody>
-                        {{each data}}
+                        {{#each data}}
                         <tr data-value={{this.sponsor_id}}>
-                            <td>{{this.sponsor_id}}<\td>
-                            <td>{{this.name}}<\td>
-                            <td>{{this.offering_id}}<\td>
-                            <td>{{this.stuff}}<\td>
-                            <td>{{this.year}}<\td>
+                            <td>{{this.sponsor_id}}</td>
+                            <td>{{this.sponsor_name}}</td>
+                            <td>{{this.stuff}}</td>
+                        </tr>
+                        {{/each}}
 
-                        {{\each}}
-                    <\tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>Yonex</td>
-                        <td>2</td>
-                        <td>2018</td>
- 
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Asics</td>
-                        <td>3</td>
-                        <td>2019</td>
-
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>US bank</td>
-                        <td>1</td>
-                        <td>2021</td>
-
-                    </tr>
-                    
+                    </tbody>
                 </table>
             </div>
             <!--Table END-->
