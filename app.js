@@ -470,7 +470,7 @@ app.post("/edit-player-form", function (req, res) {
     } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
     // presents it on the screen
     else {
-      res.redirect("/offeringsEdit");
+      res.redirect("/playersEdit");
     }
   });
 });
