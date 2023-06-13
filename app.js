@@ -444,17 +444,17 @@ app.post("/edit-player-form", function (req, res) {
   // Create the query and run it on the database
   query1 = `UPDATE Players SET\
   stuff = '${data["edit-stuff"]}',\
-  first_name = CASE WHEN ${first_name}\
-    IS NOT NULL THEN ${first_name}\
+  first_name = CASE WHEN '${first_name}'\
+    IS NOT NULL THEN '${first_name}'\
     ELSE first_name END,
-  last_name = CASE WHEN ${last_name}\
-    IS NOT NULL THEN ${last_name}\
+  last_name = CASE WHEN '${last_name}'\
+    IS NOT NULL THEN '${last_name}'\
     ELSE last_name END,
-  nation = CASE WHEN ${nation}\
-    IS NOT NULL THEN ${nation}\
+  nation = CASE WHEN '${nation}'\
+    IS NOT NULL THEN '${nation}'\
     ELSE nation END,
-  phone_num = CASE WHEN ${phone_num}\
-    IS NOT NULL THEN ${phone_num}\
+  phone_num = CASE WHEN '${phone_num}'\
+    IS NOT NULL THEN '${phone_num}'\
     ELSE phone_num END,
   coach_id = CASE WHEN ${coach_id}\
     IS NOT NULL THEN ${coach_id}\
