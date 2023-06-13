@@ -458,7 +458,7 @@ app.post("/edit-player-form", function (req, res) {
   coach_id = CASE WHEN ${coach_id}\
     IS NOT NULL THEN ${coach_id}\
     ELSE coach_id END
-  WHERE player_id = '${data["edit-player-id"]}';`;
+  WHERE player_id = ${data["edit-player-id"]};`;
 
   db.pool.query(query1, function (error, _rows, _fields) {
     console.log(error);
