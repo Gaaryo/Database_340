@@ -20,18 +20,26 @@
                     <h3>Create New Data</h3>
                     <div class="u_input">
                         <label for="input-year">Year</label>
-                        <input name="input-year" id="input-year">
+                        <input name="input-year" id="input-year" required>
                         <p>*required</p>
                     </div>
 
                     <div class="u_input">
                         <label for="input-venue">Venue</label>
-                        <input name="input-venue" id="input-venue">
+                        <input name="input-venue" id="input-venue" required>
                         <p>*required</p>
                     </div>
                     <div class="u_input">
                         <label for="input-sponsor-name">Sponsor Name</label>
-                        <input name="input-sponsor-name" id="input-sponsor-name">
+                        <select name="input-sponsor-name" id="input-sponsor-name">
+                            <option> Select a Sponsor </option>
+                            {{#each sponsors}}
+                            <option value="{{this.sponsor_name}}">{{this.sponsor_name}}</option>
+                            {{/each}}
+                        </select>
+
+                        {{!--<input name="input-sponsor-name" id="input-sponsor-name">--}}
+
                     </div>
                     
                     <input type="submit">
@@ -54,9 +62,17 @@
                         <input name="edit-venue" id="edit-venue">
                         {{!--<p>*required</p>--}}
                     </div>
+
                     <div class="u_input">
                         <label for="edit-sponsor-name">Sponsor Name</label>
-                        <input name="edit-sponsor-name" id="edit-sponsor-name">
+                        <select name="input-sponsor-name" id="input-sponsor-name">
+                            <option> Select a Sponsor </option>
+                            {{#each sponsors}}
+                            <option value="{{this.sponsor_name}}">{{this.sponsor_name}}</option>
+                            {{/each}}
+                        </select>
+
+                        {{!--<input name="edit-sponsor-name" id="edit-sponsor-name">--}}
                     </div>
                     
                     <input type="submit">

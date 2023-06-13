@@ -484,7 +484,8 @@ app.post("/add-tournament-form", function (req, res) {
 app.post("/add-sponsor-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
-  //console.log(data);
+  console.log(data);
+  console.log("rec");
 
   // Create the query and run it on the database
   const query = `INSERT INTO Sponsors (sponsor_name, offering_id)\
