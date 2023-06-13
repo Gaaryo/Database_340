@@ -558,9 +558,7 @@ app.post("/add-sponsor-form", function (req, res) {
 
   // Create the query and run it on the database
   const query = `INSERT INTO Sponsors (sponsor_name, offering_id)\
-    VALUES ('${data["input-name"]}',\
-    (SELECT Offerings.offering_id FROM Offerings\
-    WHERE Sponsors.sponsor_name = '${data["input-name"]}'));`;
+    VALUES ('${data["input-name"]}','${data["input-offering"]}');`;
 
   db.pool.query(query, function (error, _rows, _fields) {
     console.log(error);
