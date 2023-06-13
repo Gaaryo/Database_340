@@ -37,10 +37,9 @@ app.get("/tournamentsEdit", function (_req, res) {
 
   db.pool.query(query, function (error, data, _fields) {
     db.pool.query(sponsor_query, function (error, sponsors, _fields) {
-      res.render("tournamentsEdit", { data: data, sponsors});
+      res.render("tournamentsEdit", { data: data, sponsors });
     });
   });
-
 });
 
 app.get("/playersEdit", function (_req, res) {
@@ -51,9 +50,19 @@ app.get("/playersEdit", function (_req, res) {
            Coaches.first_name AS coach_first_name,\
            Coaches.last_name AS coach_last_name\
            FROM Players LEFT JOIN Coaches ON Coaches.coach_id = Players.coach_id;";
+  coach_query = "SELECT * FROM Coaches;";
+  player_query = "SELECT * FROM Players;";
 
-  db.pool.query(query1, function (_error, rows, _fields) { // Execute the query
-    res.render("playersEdit", { data: rows }); // Render the index.hbs file, and also send the renderer
+  db.pool.query(query1, function (_error, data, _fields) { // Execute the query
+    db.pool.query(coach_query, function (_error, coaches, _fields) { // Execute the query
+      db.pool.query(player_query, function (_error, players, _fields) { // Execute the query
+        res.render("playersEdit", {
+          data: data,
+          coaches: coaches,
+          players: players,
+        }); // Render the index.hbs file, and also send the renderer
+      });
+    });
   });
 });
 
