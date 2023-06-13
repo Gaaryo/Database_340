@@ -39,6 +39,10 @@ filter.addEventListener("click", () => {
       continue;
     }
 
+    if (first_name == "" && last_name == "" && nation == "") {
+      continue;
+    }
+
     row_items[i].style.display = "none";
   }
 });
