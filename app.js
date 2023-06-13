@@ -443,7 +443,6 @@ app.post("/edit-player-form", function (req, res) {
 
   // Create the query and run it on the database
   query1 = `UPDATE Players SET\
-  stuff = '${data["edit-stuff"]}',\
   first_name = CASE WHEN ${first_name}\
     IS NOT NULL THEN ${first_name}\
     ELSE first_name END,
