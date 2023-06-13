@@ -249,6 +249,8 @@ app.get("/test", function (_req, res) {
   }); // an object where 'data' is equal to the 'rows' we
 });
 
+
+//delete section
 app.delete("/delete-coach-ajax/", function (req, res, _next) {
   const data = req.body;
   const personID = parseInt(data.id);
@@ -356,6 +358,7 @@ app.delete("/delete-match-ajax/", function (req, res, _next) {
   });
 });
 
+// Create Section
 //post coach
 app.post("/add-coach-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
