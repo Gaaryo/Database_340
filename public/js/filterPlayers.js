@@ -6,7 +6,7 @@ filter.addEventListener("click", () => {
   last_name = document.getElementById("input-lname");
   nation = document.getElementById("input-nation");
 
-  for (let i = 0; i < row_items; i++) {
+  for (let i = 0; i < row_items.length; i++) {
     row_items[i].style.display = "none";
 
     // first name
