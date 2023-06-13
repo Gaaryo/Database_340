@@ -35,18 +35,12 @@ app.get("/tournamentsEdit", function (_req, res) {
 
   const sponsor_query = "SELECT * FROM Sponsors;";
 
-  let data;
-  let sponsors;
-
-  db.pool.query(query, function (_error, rows, _fields) {
-    data = rows;
+  db.pool.query(query, function (error, data, _fields) {
+    db.pool.query(sponsor_query, function (error, sponsors, _fields) {
+      res.render("tournamentsEdit", { data: data, sponsors});
+    });
   });
 
-  db.pool.query(sponsor_query, function (_error, rows, _fields) {
-    sponsors = rows;
-  });
-
-  res.render("tournamentsEdit", { data: data, sponsors: sponsors });
 });
 
 app.get("/playersEdit", function (_req, res) {
