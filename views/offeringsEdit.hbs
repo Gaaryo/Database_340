@@ -27,11 +27,23 @@
             <div class="edit">
                 <form id="edit-offering-form" method="POST" action="/edit-offering-form">
                     <h3>Edit Existing Data</h3>
+                    <!-- <div class="u_input"> -->
+                    <!--     <label for="edit-id">ID(data you edit)</label> -->
+                    <!--     <input name="edit-id" id="edit-id"> -->
+                    <!--     <p>*required</p> -->
+                    <!-- </div> -->
+
                     <div class="u_input">
-                        <label for="edit-id">ID(data you edit)</label>
-                        <input name="edit-id" id="edit-id">
+                        <label for="edit-id">Offering</label>
+                        <select name="edit-id" id="edit-id" required>
+                            <option value=""> Select a Sponsor </option>
+                            {{#each data}}
+                            <option value="{{this.sponsor_id}}">{{this.sponsor_id}} {{this.sponsor_name}}</option>
+                            {{/each}}
+                        </select>
                         <p>*required</p>
                     </div>
+
                     <div class="u_input">
                         <label for="edit-stuff">Offering</label>
                         <input name="edit-stuff" id="edit-stuff">

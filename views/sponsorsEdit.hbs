@@ -19,17 +19,13 @@
                         <input name="input-name" id="input-name">
                         <p>*required</p>
                     </div>
-                    <!-- <div class="u_input"> -->
-                    <!--     <label for="input-offering">Offering</label> -->
-                    <!--     <input name="input-offering" id="input-offering"> -->
-                    <!--     <p>*required</p> -->
-                    <!-- </div> -->
+
                     <div class="u_input">
                         <label for="input-offering">Offering</label>
                         <select name="input-offering" id="input-offering">
                             <option value=""> Select a Offering </option>
                             {{#each offering}}
-                            <option value="{{this.offering_id}}">{{this.offering_id}} {{this.stuff}}</option>
+                            <option value="{{this.offering_id}}">{{this.stuff}}</option>
                             {{/each}}
                         </select>
                     </div>
@@ -42,34 +38,23 @@
             <div class="edit">
                 <form id="edit-sponsor-form" method="POST" action="/edit-sponsor-form">
                     <h3>Edit Existing Data</h3>
-                    {{!-- <div class="u_input"> --}}
-                    {{!--     <label for="edit-id">Sponsor ID</label> --}}
-                    {{!--     <input name="edit-id" id="edit-id"> --}}
-                    {{!--     <p>*required</p> --}}
-                    {{!-- </div> --}}
 
                     <div class="u_input">
                         <label for="edit-id">Sponsor</label>
                         <select name="edit-id" id="edit-id">
                             <option value=""> Select a Sponsor </option>
                             {{#each data}}
-                            <option value="{{this.sponsor_id}}">{{this.sponsor_name}}</option>
+                            <option value="{{this.sponsor_id}}">{{this.sponsor_id}} {{this.sponsor_name}}</option>
                             {{/each}}
                         </select>
                     </div>
 
-                    {{!-- <div class="u_input"> --}}
-                    {{!--     <label for="edit-offering" >Offering</label> --}}
-                    {{!--     <input name="edit-offering" id="edit-offering"> --}}
-                    {{!--     <p>*required</p> --}}
-                    {{!-- </div> --}}
-                    
                     <div class="u_input">
                         <label for="offering-id">Offering</label>
                         <select name="offering-id" id="offering-id">
                             <option value=""> Select a offering </option>
                             {{#each offering}}
-                            <option value="{{this.offering_id}}">{{this.offering_id}} {{this.stuff}}</option>
+                            <option value="{{this.offering_id}}">{{this.stuff}}</option>
                             {{/each}}
                         </select>
                     </div>
