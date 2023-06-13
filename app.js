@@ -33,10 +33,20 @@ app.get("/tournamentsEdit", function (_req, res) {
     SELECT * FROM Tournaments\
     LEFT JOIN Sponsors ON Sponsors.sponsor_id = Tournaments.sponsor_id;";
 
+  const sponsor_query = "SELECT * FROM Sponsors;";
+
+  let data;
+  let sponsors;
+
   db.pool.query(query, function (_error, rows, _fields) {
-    console.log(rows);
-    res.render("tournamentsEdit", { data: rows });
+    data = rows;
   });
+
+  db.pool.query(sponsor_query, function (_error, rows, _fields) {
+    sponsors = rows;
+  });
+
+  res.render("tournamentsEdit", { data: data, sponsors: sponsors });
 });
 
 app.get("/playersEdit", function (_req, res) {
