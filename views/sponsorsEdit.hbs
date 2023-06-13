@@ -19,10 +19,19 @@
                         <input name="input-name" id="input-name">
                         <p>*required</p>
                     </div>
+                    <!-- <div class="u_input"> -->
+                    <!--     <label for="input-offering">Offering</label> -->
+                    <!--     <input name="input-offering" id="input-offering"> -->
+                    <!--     <p>*required</p> -->
+                    <!-- </div> -->
                     <div class="u_input">
                         <label for="input-offering">Offering</label>
-                        <input name="input-offering" id="input-offering">
-                        <p>*required</p>
+                        <select name="input-offering" id="input-offering">
+                            <option value=""> Select a Sponsor </option>
+                            {{#each offering}}
+                            <option value="{{this.offering_id}}">{{this.offering_id}} {{this.stuff}}</option>
+                            {{/each}}
+                        </select>
                     </div>
                     
                     {{!-- <button>Create Data</button> --}}
@@ -60,7 +69,7 @@
                         <select name="offering-id" id="offering-id">
                             <option value=""> Select a Sponsor </option>
                             {{#each offering}}
-                            <option value="{{this.offering_id}}">{{this.stuff}}</option>
+                            <option value="{{this.offering_id}}">{{this.offering_id}} {{this.stuff}}</option>
                             {{/each}}
                         </select>
                     </div>
