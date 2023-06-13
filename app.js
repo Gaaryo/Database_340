@@ -129,7 +129,6 @@ app.get("/sponsorsEdit", function (_req, res) {
 
   db.pool.query(query, function (_error, data, _fields) {
     db.pool.query(offering_query, function (_error, offering, _fields) {
-      console.log(rows);
       res.render("sponsorsEdit", { data: data, offering: offering });
     });
   });
