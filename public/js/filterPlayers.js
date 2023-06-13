@@ -12,20 +12,23 @@ filter.addEventListener("click", () => {
 
     // first name
     if (first_name == "" || row_items[i].children[0].innerHTML == first_name) {
+      console.log("b");
       continue;
     }
 
     // last name
     if (last_name == "" || row_items[i].children[1].innerHTML == last_name) {
+      console.log("c");
       continue;
     }
 
     //nation
     if (nation == "" || row_items[i].children[2].innerHTML == nation) {
+      console.log("d");
       continue;
     }
 
-    console.log("b");
+    console.log("e");
 
     row_items[i].style.display = "";
   }
