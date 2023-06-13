@@ -33,17 +33,38 @@
             <div class="edit">
                 <form id="edit-sponsor-form" method="POST" action="/edit-sponsor-form">
                     <h3>Edit Existing Data</h3>
+                    {{!-- <div class="u_input"> --}}
+                    {{!--     <label for="edit-id">Sponsor ID</label> --}}
+                    {{!--     <input name="edit-id" id="edit-id"> --}}
+                    {{!--     <p>*required</p> --}}
+                    {{!-- </div> --}}
+
                     <div class="u_input">
-                        <label for="edit-id">Sponsor ID</label>
-                        <input name="edit-id" id="edit-id">
-                        <p>*required</p>
+                        <label for="edit-id">Sponsor</label>
+                        <select name="edit-id" id="edit-id">
+                            <option value=""> Select a Sponsor </option>
+                            {{#each data}}
+                            <option value="{{this.sponsor_id}}">{{this.sponsor_name}}</option>
+                            {{/each}}
+                        </select>
                     </div>
-                    <div class="u_input">
-                        <label for="edit-offering" >Offering</label>
-                        <input name="edit-offering" id="edit-offering">
-                        <p>*required</p>
-                    </div>
+
+                    {{!-- <div class="u_input"> --}}
+                    {{!--     <label for="edit-offering" >Offering</label> --}}
+                    {{!--     <input name="edit-offering" id="edit-offering"> --}}
+                    {{!--     <p>*required</p> --}}
+                    {{!-- </div> --}}
                     
+                    <div class="u_input">
+                        <label for="offering-id">Offering</label>
+                        <select name="offering-id" id="offering-id">
+                            <option value=""> Select a Sponsor </option>
+                            {{#each offering}}
+                            <option value="{{this.offering_id}}">{{this.stuff}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
                     {{!-- <button>Edit Data</button> --}}
                     <input type="submit">
                 </form>

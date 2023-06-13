@@ -625,7 +625,7 @@ app.post("/edit-sponsor-form", function (req, res) {
     sponsor_id = "NULL";
   }
 
-  let offering = `'${data["edit-offering"]}'`;
+  let offering = `'${data["offering-id"]}'`;
   if (offering === "''") {
     offering = "NULL";
   }
@@ -633,9 +633,7 @@ app.post("/edit-sponsor-form", function (req, res) {
   // Create the query and run it on the database
   const query = `UPDATE Sponsors SET\
   offering_id = CASE WHEN ${offering}\
-    IS NOT NULL THEN\
-      (SELECT Offerings.offering_id FROM Offerings\
-      WHERE Offerings.stuff = ${offering} LIMIT 1)\
+    IS NOT NULL THEN ${offering}\
     ELSE offering_id END\
   WHERE Sponsors.sponsor_id = ${sponsor_id};`;
 
