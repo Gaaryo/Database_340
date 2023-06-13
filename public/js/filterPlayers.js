@@ -7,6 +7,7 @@ filter.addEventListener("click", () => {
   nation = document.getElementById("input-nation");
 
   for (let i = 0; i < row_items.length; i++) {
+    console.log("a");
     row_items[i].style.display = "none";
 
     // first name
@@ -23,6 +24,8 @@ filter.addEventListener("click", () => {
     if (nation == "" || row_items[i].children[2].innerHTML == nation) {
       continue;
     }
+
+    console.log("b");
 
     row_items[i].style.display = "";
   }
