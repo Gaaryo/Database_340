@@ -34,23 +34,16 @@
                         <input name="input-phone_num" id="input-phone_num">
                     </div>
 
-                    <label for="edit-coach-id">Coach</label>
-                    <select name="input-coach-id" id="input-coach-id">
-                        <option> Select a Coach </option>
-                        {{#each coaches}}
-                        <option value="{{this.coach_id}}">{{this.first_name}} {{this.last_name}}</option>
-                        {{/each}}
-                    </select>
+                    <div class="u_input">
+                        <label for="edit-coach-id">Coach</label>
+                        <select name="input-coach-id" id="input-coach-id">
+                            <option> Select a Coach </option>
+                            {{#each coaches}}
+                            <option value="{{this.coach_id}}">{{this.first_name}} {{this.last_name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
 
-                    <!-- <div class="u_input"> -->
-                    <!--     <label for="input-coach_first_name">Coach's First Name</label> -->
-                    <!--     <input name="input-coach_first_name" id="input-coach_first_name"> -->
-                    <!-- </div> -->
-                    <!-- <div class="u_input"> -->
-                    <!--     <label for="input-coach_last_name">Coach's Last Name</label> -->
-                    <!--     <input name="input-coach_last_name" id="input-coach_last_name"> -->
-                    <!-- </div> -->
-                    
                     <input type="submit">
                 </form>
             </div>
