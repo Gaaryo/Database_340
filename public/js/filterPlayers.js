@@ -10,7 +10,6 @@ filter.addEventListener("click", () => {
     .trim();
 
   for (let i = 0; i < row_items.length; i++) {
-    console.log("a");
     row_items[i].style.display = "";
 
     // first name
@@ -18,7 +17,7 @@ filter.addEventListener("click", () => {
       row_items[i].children[0].innerHTML
         .toLocaleLowerCase().trim() == first_name
     ) {
-      console.log("b");
+      console.log(row_items[i].children[0].innerHTML, first_name);
       continue;
     }
 
@@ -27,7 +26,7 @@ filter.addEventListener("click", () => {
       row_items[i].children[1].innerHTML
         .toLocaleLowerCase().trim() == last_name
     ) {
-      console.log("c");
+      console.log(row_items[i].children[1].innerHTML, last_name);
       continue;
     }
 
@@ -36,11 +35,10 @@ filter.addEventListener("click", () => {
       row_items[i].children[2].innerHTML
         .toLocaleLowerCase().trim() == nation
     ) {
-      console.log("d");
+      console.log(row_items[i].children[2].innerHTML, nation);
       continue;
     }
 
-    console.log("e");
     row_items[i].style.display = "none";
   }
 });
