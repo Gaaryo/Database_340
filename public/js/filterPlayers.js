@@ -10,15 +10,16 @@ filter.addEventListener("click", () => {
     .trim();
 
   for (let i = 0; i < row_items.length; i++) {
-    console.log("a");
     row_items[i].style.display = "";
+    console.log(row_items[i].children[0].innerHTML, first_name);
+    console.log(row_items[i].children[1].innerHTML, last_name);
+    console.log(row_items[i].children[2].innerHTML, nation);
 
     // first name
     if (
       row_items[i].children[0].innerHTML
         .toLocaleLowerCase().trim() == first_name
     ) {
-      console.log("b");
       continue;
     }
 
@@ -27,7 +28,6 @@ filter.addEventListener("click", () => {
       row_items[i].children[1].innerHTML
         .toLocaleLowerCase().trim() == last_name
     ) {
-      console.log("c");
       continue;
     }
 
@@ -36,11 +36,9 @@ filter.addEventListener("click", () => {
       row_items[i].children[2].innerHTML
         .toLocaleLowerCase().trim() == nation
     ) {
-      console.log("d");
       continue;
     }
 
-    console.log("e");
     row_items[i].style.display = "none";
   }
 });
