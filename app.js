@@ -391,23 +391,13 @@ app.post("/add-player-form", function (req, res) {
     phone_num = "NULL";
   }
 
-  coach_fname = data.coach_first_name;
-  if ((coach_fname == undefined) || (coach_fname === "")) {
-    coach_fname = "NULL";
-  }
-
-  coach_lname = data.coach_last_name;
-  if ((coach_lname == undefined) || (coach_lname === "")) {
-    coach_lname = "NULL";
-  }
-
   // Create the query and run it on the database
   query1 =
     `INSERT INTO Players (first_name, last_name, nation, phone_num, coach_id) VALUES ('${
       data["input-first_name"]
     }', '${data["input-last_name"]}', '${
       data["input-nation"]
-    }', '${phone_num}', (SELECT coach_id FROM Coaches WHERE Coaches.first_name = '${coach_fname}' AND  Coaches.last_name = '${coach_lname}'));`;
+    }', '${phone_num}', '${"input-coach-id"}';`;
   db.pool.query(query1, function (error, _rows, _fields) {
     // Check to see if there was an error
     if (error) {
