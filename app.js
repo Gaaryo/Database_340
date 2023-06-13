@@ -411,6 +411,71 @@ app.post("/add-player-form", function (req, res) {
   });
 });
 
+app.post("/edit-player-form", function (req, res) {
+  // Capture the incoming data and parse it back to a JS object
+  const data = req.body;
+  //console.log(data);
+
+  let first_name = `'${data["edit-player-fname"]}'`;
+  if (first_name === "''") {
+    first_name = "NULL";
+  }
+
+  let last_name = `'${data["edit-player-lname"]}'`;
+  if (last_name === "''") {
+    last_name = "NULL";
+  }
+
+  let nation = `'${data["edit-nation"]}'`;
+  if (nation === "''") {
+    nation = "NULL";
+  }
+
+  let phone_num = `'${data["edit-phone-num"]}'`;
+  if (phone_num === "''") {
+    phone_num = "NULL";
+  }
+
+  let coach_id = `'${data["edit-coach-id"]}'`;
+  if (coach_id === "''") {
+    coach_id = "NULL";
+  }
+
+  // Create the query and run it on the database
+  query1 = `UPDATE Players SET\
+  stuff = '${data["edit-stuff"]}',\
+  first_name = CASE WHEN ${first_name}\
+    IS NOT NULL THEN ${first_name}\
+    ELSE first_name END,
+  last_name = CASE WHEN ${last_name}\
+    IS NOT NULL THEN ${last_name}\
+    ELSE last_name END,
+  nation = CASE WHEN ${nation}\
+    IS NOT NULL THEN ${nation}\
+    ELSE nation END,
+  phone_num = CASE WHEN ${phone_num}\
+    IS NOT NULL THEN ${phone_num}\
+    ELSE phone_num END,
+  coach_id = CASE WHEN ${coach_id}\
+    IS NOT NULL THEN ${coach_id}\
+    ELSE coach_id END
+  WHERE player_id = '${data["edit-player-id"]}';`;
+
+  db.pool.query(query1, function (error, _rows, _fields) {
+    console.log(error);
+    // Check to see if there was an error
+    if (error) {
+      // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+      console.log(error);
+      res.sendStatus(400);
+    } // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+    // presents it on the screen
+    else {
+      res.redirect("/offeringsEdit");
+    }
+  });
+});
+
 app.post("/add-offering-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
   const data = req.body;
